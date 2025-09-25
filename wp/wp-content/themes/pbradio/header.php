@@ -27,5 +27,12 @@
             ]);
             ?>
         </nav>
+        <div class="masthead__actions">
+            <button type="button" class="masthead__search" data-open-search aria-haspopup="dialog">
+                <span class="masthead__search-label">Search</span>
+                <span class="masthead__key-hint" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span>
+                <span class="visually-hidden">Open search overlay (Ctrl+K on Windows)</span>
+            </button>
+        </div>
     </div>
 </header>
