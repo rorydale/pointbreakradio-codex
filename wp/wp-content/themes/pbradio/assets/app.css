@@ -312,6 +312,9 @@ a:focus {
 .show-card__title {
     margin: 0 0 8px;
     font-size: 1.2rem;
+    line-height: 1.25;
+    min-height: 2.5em;
+    display: block;
 }
 
 .show-card__meta {
