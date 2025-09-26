@@ -258,6 +258,8 @@ class Store
                 'album' => '',
                 'duration_seconds' => null,
                 'mood' => null,
+                'order' => null,
+                'tags' => [],
             ];
 
             $normalizedTracks = [];
@@ -266,11 +268,21 @@ class Store
                     continue;
                 }
 
-                $normalizedTracks[] = array_merge($trackDefaults, $track);
+                $track = array_merge($trackDefaults, $track);
+
+                if (! is_array($track['tags'])) {
+                    $track['tags'] = array_values(array_filter((array) $track['tags']));
+                }
+
+                $normalizedTracks[] = $track;
             }
 
             $show['tracks'] = $normalizedTracks;
         }
+
+        usort($show['tracks'], static function (array $a, array $b): int {
+            return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
+        });
 
         if (! $show['_ft']) {
             $show['_ft'] = $this->deriveSearchField($show);
@@ -312,6 +324,9 @@ class Store
             $parts[] = $track['title'] ?? '';
             $parts[] = $track['artist'] ?? '';
             $parts[] = $track['album'] ?? '';
+            if (! empty($track['tags'])) {
+                $parts[] = implode(' ', (array) $track['tags']);
+            }
         }
 
         return trim(preg_replace('/\s+/', ' ', implode(' ', $parts)));
@@ -381,7 +396,11 @@ function bootstrap(): void
 
     require_once __DIR__ . '/includes/Api.php';
 
-    $root_dir = dirname(__DIR__, 3);
+    $root_dir = dirname(__DIR__, 4);
+    if (! $root_dir || ! is_dir($root_dir . '/data')) {
+        $root_dir = dirname(__DIR__, 3);
+    }
+
     $data_file = $root_dir . '/data/shows.json';
 
     $store = new Store($data_file);

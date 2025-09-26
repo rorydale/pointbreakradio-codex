@@ -36,6 +36,8 @@
         activeTrackIndex: null,
     };
 
+    const MAX_MATCH_PREVIEW = 4;
+
     let searchTimer = null;
     let lastOverlayTrigger = null;
 
@@ -462,6 +464,7 @@
         state.searchResults.forEach((entry, index) => {
             const show = entry.show;
             cacheShow(show);
+            const matches = buildMatchPreviews(show, state.searchTerm);
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'search-result';
@@ -493,13 +496,110 @@
 
             left.append(title, meta);
 
-            const score = document.createElement('span');
-            score.className = 'search-result__score';
-            score.textContent = entry.score ? `${entry.score.toFixed(2)}` : '';
+            if (matches.length) {
+                const matchesList = document.createElement('div');
+                matchesList.className = 'search-result__matches';
+                matches.forEach((snippet) => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result__match';
+                    item.innerHTML = highlightTerm(snippet, state.searchTerm);
+                    matchesList.appendChild(item);
+                });
+                left.appendChild(matchesList);
+            }
 
-            button.append(left, score);
+            button.append(left);
             overlay.results.appendChild(button);
         });
+    }
+
+    function buildMatchPreviews(show, term) {
+        const matches = [];
+        const loweredTerm = term.trim().toLowerCase();
+
+        if (!loweredTerm) {
+            return matches;
+        }
+
+        const addMatch = (text) => {
+            if (!text || matches.length >= MAX_MATCH_PREVIEW) {
+                return;
+            }
+            matches.push(text);
+        };
+
+        if (show.title && show.title.toLowerCase().includes(loweredTerm)) {
+            addMatch(show.title);
+        }
+
+        if (show.description && show.description.toLowerCase().includes(loweredTerm)) {
+            addMatch(extractSnippet(show.description, loweredTerm));
+        }
+
+        (show.tags || []).forEach((tag) => {
+            if (typeof tag === 'string' && tag.toLowerCase().includes(loweredTerm)) {
+                addMatch(`#${tag}`);
+            }
+        });
+
+        (show.tracks || []).forEach((track) => {
+            const artist = (track.artist || '').toLowerCase();
+            const title = (track.title || '').toLowerCase();
+            const album = (track.album || '').toLowerCase();
+
+            if (!artist.includes(loweredTerm) && !title.includes(loweredTerm) && !album.includes(loweredTerm)) {
+                return;
+            }
+
+            const base = `${track.artist ? `${track.artist} — ` : ''}${track.title || ''}`.trim();
+            const withAlbum = track.album ? `${base} • ${track.album}` : base;
+            addMatch(withAlbum);
+        });
+
+        return matches.slice(0, MAX_MATCH_PREVIEW);
+    }
+
+    function extractSnippet(text, term) {
+        const lowered = text.toLowerCase();
+        const index = lowered.indexOf(term);
+
+        if (index === -1) {
+            return text.length > 120 ? `${text.slice(0, 117)}…` : text;
+        }
+
+        const start = Math.max(0, index - 30);
+        const end = Math.min(text.length, index + term.length + 30);
+        const snippet = text.slice(start, end).trim();
+        return start > 0 ? `…${snippet}` : snippet;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function highlightTerm(text, term) {
+        if (!term) {
+            return escapeHtml(text);
+        }
+
+        const escapedText = escapeHtml(text);
+        const escapedTerm = escapeRegExp(term);
+
+        if (!escapedTerm) {
+            return escapedText;
+        }
+
+        const regex = new RegExp(`(${escapedTerm})`, 'ig');
+        return escapedText.replace(regex, '<mark class="search-result__highlight">$1</mark>');
+    }
+
+    function escapeRegExp(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     function performSearch(term) {

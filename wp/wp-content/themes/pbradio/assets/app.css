@@ -596,10 +596,25 @@ a:focus {
     text-transform: uppercase;
 }
 
-.search-result__score {
+.search-result__matches {
+    margin-top: 8px;
+    display: grid;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.search-result__match {
     font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent-alt);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+}
+
+.search-result__highlight {
+    background: rgba(255, 79, 216, 0.35);
+    color: var(--text-primary);
+    padding: 0 2px;
+    border-radius: 3px;
 }
 
 .show-drawer {

@@ -1,0 +1,1873 @@
+{
+    "generated_at": "2025-09-26T00:23:58+00:00",
+    "artists": [
+        {
+            "id": "artist:a-flock-of-seagulls",
+            "slug": "a-flock-of-seagulls",
+            "name": "A Flock Of Seagulls"
+        },
+        {
+            "id": "artist:abba",
+            "slug": "abba",
+            "name": "Abba"
+        },
+        {
+            "id": "artist:all-night-long",
+            "slug": "all-night-long",
+            "name": "All Night Long"
+        },
+        {
+            "id": "artist:alphaville",
+            "slug": "alphaville",
+            "name": "Alphaville"
+        },
+        {
+            "id": "artist:baby-go-go",
+            "slug": "baby-go-go",
+            "name": "Baby Go-Go"
+        },
+        {
+            "id": "artist:ben-levin",
+            "slug": "ben-levin",
+            "name": "Ben Levin"
+        },
+        {
+            "id": "artist:billy-idol",
+            "slug": "billy-idol",
+            "name": "Billy Idol"
+        },
+        {
+            "id": "artist:blues-escape-johanna-lillvik",
+            "slug": "blues-escape-johanna-lillvik",
+            "name": "Blues Escape, Johanna Lillvik"
+        },
+        {
+            "id": "artist:bobby-rush",
+            "slug": "bobby-rush",
+            "name": "Bobby Rush"
+        },
+        {
+            "id": "artist:bonnie-tyler",
+            "slug": "bonnie-tyler",
+            "name": "Bonnie Tyler"
+        },
+        {
+            "id": "artist:californication",
+            "slug": "californication",
+            "name": "Californication"
+        },
+        {
+            "id": "artist:controversy",
+            "slug": "controversy",
+            "name": "Controversy"
+        },
+        {
+            "id": "artist:crash",
+            "slug": "crash",
+            "name": "Crash"
+        },
+        {
+            "id": "artist:cristina-vane",
+            "slug": "cristina-vane",
+            "name": "Cristina Vane"
+        },
+        {
+            "id": "artist:cyndi-lauper",
+            "slug": "cyndi-lauper",
+            "name": "Cyndi Lauper"
+        },
+        {
+            "id": "artist:damon-fowler",
+            "slug": "damon-fowler",
+            "name": "Damon Fowler"
+        },
+        {
+            "id": "artist:dave-stewart-thomas-lindsey",
+            "slug": "dave-stewart-thomas-lindsey",
+            "name": "Dave Stewart, Thomas Lindsey"
+        },
+        {
+            "id": "artist:david-kimbrough-jr",
+            "slug": "david-kimbrough-jr",
+            "name": "David Kimbrough Jr."
+        },
+        {
+            "id": "artist:drinking-in-l-a",
+            "slug": "drinking-in-l-a",
+            "name": "Drinking in L.A."
+        },
+        {
+            "id": "artist:duran-duran",
+            "slug": "duran-duran",
+            "name": "Duran Duran"
+        },
+        {
+            "id": "artist:fine-young-cannibals",
+            "slug": "fine-young-cannibals",
+            "name": "Fine Young Cannibals"
+        },
+        {
+            "id": "artist:george-clinton-prince",
+            "slug": "george-clinton-prince",
+            "name": "George Clinton, Prince"
+        },
+        {
+            "id": "artist:george-michael",
+            "slug": "george-michael",
+            "name": "George Michael"
+        },
+        {
+            "id": "artist:guns-n-roses",
+            "slug": "guns-n-roses",
+            "name": "Guns N\u2019 Roses"
+        },
+        {
+            "id": "artist:hey-pretty-drive-by-2001-mix",
+            "slug": "hey-pretty-drive-by-2001-mix",
+            "name": "Hey Pretty (Drive-By 2001 Mix)"
+        },
+        {
+            "id": "artist:i-monster",
+            "slug": "i-monster",
+            "name": "I Monster"
+        },
+        {
+            "id": "artist:inxs",
+            "slug": "inxs",
+            "name": "INXS"
+        },
+        {
+            "id": "artist:i-m-gonna-be-500-miles",
+            "slug": "i-m-gonna-be-500-miles",
+            "name": "I\u2019m Gonna Be (500 Miles)"
+        },
+        {
+            "id": "artist:john-primer-bob-corritore",
+            "slug": "john-primer-bob-corritore",
+            "name": "John Primer, Bob Corritore"
+        },
+        {
+            "id": "artist:judith-hill",
+            "slug": "judith-hill",
+            "name": "Judith Hill"
+        },
+        {
+            "id": "artist:loverboy",
+            "slug": "loverboy",
+            "name": "Loverboy"
+        },
+        {
+            "id": "artist:madonna",
+            "slug": "madonna",
+            "name": "Madonna"
+        },
+        {
+            "id": "artist:martika-s-kitchen",
+            "slug": "martika-s-kitchen",
+            "name": "Martika's Kitchen"
+        },
+        {
+            "id": "artist:master-blaster-jammin",
+            "slug": "master-blaster-jammin",
+            "name": "Master Blaster (Jammin\u2019)"
+        },
+        {
+            "id": "artist:men-at-work",
+            "slug": "men-at-work",
+            "name": "Men At Work"
+        },
+        {
+            "id": "artist:michael-jackson",
+            "slug": "michael-jackson",
+            "name": "Michael Jackson"
+        },
+        {
+            "id": "artist:midnight-oil",
+            "slug": "midnight-oil",
+            "name": "Midnight Oil"
+        },
+        {
+            "id": "artist:mojo-buford",
+            "slug": "mojo-buford",
+            "name": "Mojo Buford"
+        },
+        {
+            "id": "artist:more-bounce-to-the-ounce",
+            "slug": "more-bounce-to-the-ounce",
+            "name": "More Bounce to the Ounce"
+        },
+        {
+            "id": "artist:no-doubt",
+            "slug": "no-doubt",
+            "name": "No Doubt"
+        },
+        {
+            "id": "artist:oh-sheila",
+            "slug": "oh-sheila",
+            "name": "Oh Sheila"
+        },
+        {
+            "id": "artist:opposites-attract",
+            "slug": "opposites-attract",
+            "name": "Opposites Attract"
+        },
+        {
+            "id": "artist:patrick-swayze-wendy-fraser",
+            "slug": "patrick-swayze-wendy-fraser",
+            "name": "Patrick Swayze, Wendy Fraser"
+        },
+        {
+            "id": "artist:paul-simon",
+            "slug": "paul-simon",
+            "name": "Paul Simon"
+        },
+        {
+            "id": "artist:phil-collins",
+            "slug": "phil-collins",
+            "name": "Phil Collins"
+        },
+        {
+            "id": "artist:prince",
+            "slug": "prince",
+            "name": "Prince"
+        },
+        {
+            "id": "artist:prince-the-revolution",
+            "slug": "prince-the-revolution",
+            "name": "Prince, The Revolution"
+        },
+        {
+            "id": "artist:reliable-source-music",
+            "slug": "reliable-source-music",
+            "name": "Reliable Source Music"
+        },
+        {
+            "id": "artist:rory-block",
+            "slug": "rory-block",
+            "name": "Rory Block"
+        },
+        {
+            "id": "artist:roxette",
+            "slug": "roxette",
+            "name": "Roxette"
+        },
+        {
+            "id": "artist:seasick-steve",
+            "slug": "seasick-steve",
+            "name": "Seasick Steve"
+        },
+        {
+            "id": "artist:shella-e",
+            "slug": "shella-e",
+            "name": "Shella E."
+        },
+        {
+            "id": "artist:shirley-king-duke-robillard",
+            "slug": "shirley-king-duke-robillard",
+            "name": "Shirley King, Duke Robillard"
+        },
+        {
+            "id": "artist:shirley-king-joe-louis-walker",
+            "slug": "shirley-king-joe-louis-walker",
+            "name": "Shirley King, Joe Louis Walker"
+        },
+        {
+            "id": "artist:sidibe",
+            "slug": "sidibe",
+            "name": "Sidibe"
+        },
+        {
+            "id": "artist:spandau-ballet",
+            "slug": "spandau-ballet",
+            "name": "Spandau Ballet"
+        },
+        {
+            "id": "artist:steal-my-sunshine",
+            "slug": "steal-my-sunshine",
+            "name": "Steal My Sunshine"
+        },
+        {
+            "id": "artist:steptoe-and-son",
+            "slug": "steptoe-and-son",
+            "name": "Steptoe And Son"
+        },
+        {
+            "id": "artist:steve-winwood",
+            "slug": "steve-winwood",
+            "name": "Steve Winwood"
+        },
+        {
+            "id": "artist:stray-cats",
+            "slug": "stray-cats",
+            "name": "Stray Cats"
+        },
+        {
+            "id": "artist:talking-heads",
+            "slug": "talking-heads",
+            "name": "Talking Heads"
+        },
+        {
+            "id": "artist:tears-for-fears",
+            "slug": "tears-for-fears",
+            "name": "Tears For Fears"
+        },
+        {
+            "id": "artist:the-bangles",
+            "slug": "the-bangles",
+            "name": "The Bangles"
+        },
+        {
+            "id": "artist:the-bill",
+            "slug": "the-bill",
+            "name": "The Bill"
+        },
+        {
+            "id": "artist:the-cars",
+            "slug": "the-cars",
+            "name": "The Cars"
+        },
+        {
+            "id": "artist:the-clash",
+            "slug": "the-clash",
+            "name": "The Clash"
+        },
+        {
+            "id": "artist:the-communards-sarah-jane-morris",
+            "slug": "the-communards-sarah-jane-morris",
+            "name": "The Communards, Sarah Jane Morris"
+        },
+        {
+            "id": "artist:the-reverend-shawn-amos-the-brotherhood",
+            "slug": "the-reverend-shawn-amos-the-brotherhood",
+            "name": "The Reverend Shawn Amos, The Brotherhood"
+        },
+        {
+            "id": "artist:the-reverend-shawn-amos-the-brotherhood-ruthie-foster",
+            "slug": "the-reverend-shawn-amos-the-brotherhood-ruthie-foster",
+            "name": "The Reverend Shawn Amos, The Brotherhood, Ruthie Foster"
+        },
+        {
+            "id": "artist:the-romantics",
+            "slug": "the-romantics",
+            "name": "The Romantics"
+        },
+        {
+            "id": "artist:the-saint",
+            "slug": "the-saint",
+            "name": "The Saint"
+        },
+        {
+            "id": "artist:the-time",
+            "slug": "the-time",
+            "name": "The Time"
+        },
+        {
+            "id": "artist:thunder",
+            "slug": "thunder",
+            "name": "Thunder"
+        },
+        {
+            "id": "artist:too-slim-and-the-taildraggers",
+            "slug": "too-slim-and-the-taildraggers",
+            "name": "Too Slim And The Taildraggers"
+        },
+        {
+            "id": "artist:u-bring-the-freak-out",
+            "slug": "u-bring-the-freak-out",
+            "name": "U Bring The Freak Out"
+        },
+        {
+            "id": "artist:william-shatner-jeff-skunk-baxter",
+            "slug": "william-shatner-jeff-skunk-baxter",
+            "name": "William Shatner, Jeff \"Skunk\" Baxter"
+        },
+        {
+            "id": "artist:william-shatner-steve-cropper",
+            "slug": "william-shatner-steve-cropper",
+            "name": "William Shatner, Steve Cropper"
+        },
+        {
+            "id": "artist:won-t-talk-about-it",
+            "slug": "won-t-talk-about-it",
+            "name": "Won't Talk About It"
+        },
+        {
+            "id": "artist:word-up",
+            "slug": "word-up",
+            "name": "Word Up"
+        },
+        {
+            "id": "artist:yum-yum",
+            "slug": "yum-yum",
+            "name": "Yum-Yum"
+        }
+    ],
+    "albums": [],
+    "tracks": [
+        {
+            "id": "track:1837c70cd47c",
+            "slug": "27-dollars",
+            "title": "27 Dollars",
+            "artist_id": "artist:the-reverend-shawn-amos-the-brotherhood",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:44aa1ea93f0a",
+            "slug": "all-of-my-lovin",
+            "title": "All of My Lovin\u2019",
+            "artist_id": "artist:shirley-king-joe-louis-walker",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:0e2b974353c1",
+            "slug": "bnd",
+            "title": "BND",
+            "artist_id": "artist:no-doubt",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:13b33b401278",
+            "slug": "beats-international",
+            "title": "Beats International",
+            "artist_id": "artist:won-t-talk-about-it",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:78de3cc96f9b",
+            "slug": "beds-are-burning",
+            "title": "Beds Are Burning",
+            "artist_id": "artist:midnight-oil",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:7dad83885db2",
+            "slug": "blueberry-hill",
+            "title": "Blueberry Hill",
+            "artist_id": "artist:cristina-vane",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:bdf10570b43e",
+            "slug": "bran-van-3000",
+            "title": "Bran Van 3000",
+            "artist_id": "artist:drinking-in-l-a",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:a47a5c134071",
+            "slug": "brothers-in-arms",
+            "title": "Brothers in Arms",
+            "artist_id": "artist:dave-stewart-thomas-lindsey",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:4402b8dff666",
+            "slug": "burning-down-the-house",
+            "title": "Burning Down the House",
+            "artist_id": "artist:talking-heads",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5d93fe7304e2",
+            "slug": "cameo",
+            "title": "Cameo",
+            "artist_id": "artist:word-up",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:6173fad4bd62",
+            "slug": "could-never-take-the-place-of-your-man",
+            "title": "Could Never Take The Place Of Your Man",
+            "artist_id": "artist:prince",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:0fd78558f8a1",
+            "slug": "deep-sea-diver",
+            "title": "Deep Sea Diver",
+            "artist_id": "artist:mojo-buford",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:1b4455a5debb",
+            "slug": "don-t-leave-me-this-way-with-sarah-jane-morris",
+            "title": "Don't Leave Me This Way (with Sarah Jane Morris)",
+            "artist_id": "artist:the-communards-sarah-jane-morris",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:a6d934978814",
+            "slug": "done-get-old",
+            "title": "Done Get Old",
+            "artist_id": "artist:david-kimbrough-jr",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:8bcb802653b7",
+            "slug": "down-in-mississippi",
+            "title": "Down in Mississippi",
+            "artist_id": "artist:bobby-rush",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:3f7ae533fa80",
+            "slug": "drive",
+            "title": "Drive",
+            "artist_id": "artist:the-cars",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:97ddf35e2b5b",
+            "slug": "evil-gal-blues",
+            "title": "Evil Gal Blues",
+            "artist_id": "artist:blues-escape-johanna-lillvik",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5057bf150b3b",
+            "slug": "faith",
+            "title": "Faith",
+            "artist_id": "artist:george-michael",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5827f86c3e41",
+            "slug": "feelin-alright",
+            "title": "Feelin\u2019 Alright?",
+            "artist_id": "artist:shirley-king-duke-robillard",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e121cb8a10be",
+            "slug": "forever-young",
+            "title": "Forever Young",
+            "artist_id": "artist:alphaville",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:d80165b46ec5",
+            "slug": "fred-s-worried-blues",
+            "title": "Fred's Worried Blues",
+            "artist_id": "artist:seasick-steve",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:1f2dd57a7e20",
+            "slug": "got-my-mojo-working",
+            "title": "Got My Mojo Working",
+            "artist_id": "artist:mojo-buford",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:f1c47639665d",
+            "slug": "he-may-be-your-man",
+            "title": "He May Be Your Man",
+            "artist_id": "artist:rory-block",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e67f8314179b",
+            "slug": "head-over-heels-broken",
+            "title": "Head Over Heels / Broken",
+            "artist_id": "artist:tears-for-fears",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e56924d98d7d",
+            "slug": "higher-love",
+            "title": "Higher Love",
+            "artist_id": "artist:steve-winwood",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:bf4978f6ad71",
+            "slug": "honey-bee-sail-on",
+            "title": "Honey Bee, Sail On",
+            "artist_id": "artist:bobby-rush",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:322977caa079",
+            "slug": "i-m-only-dreaming",
+            "title": "I'm Only Dreaming",
+            "artist_id": "artist:sidibe",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5f3cb30491ef",
+            "slug": "junker-blues",
+            "title": "Junker Blues",
+            "artist_id": "artist:blues-escape-johanna-lillvik",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:71a7f233f443",
+            "slug": "keep-a-driving",
+            "title": "Keep A-Driving",
+            "artist_id": "artist:john-primer-bob-corritore",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:26e12eb55242",
+            "slug": "len",
+            "title": "LEN",
+            "artist_id": "artist:steal-my-sunshine",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:6139dfeb4e78",
+            "slug": "last-last-chance",
+            "title": "Last Last Chance",
+            "artist_id": "artist:too-slim-and-the-taildraggers",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:b0fe9a7ee3f7",
+            "slug": "leave-it-alone",
+            "title": "Leave It Alone",
+            "artist_id": "artist:damon-fowler",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:a2d79156aad0",
+            "slug": "like-a-virgin",
+            "title": "Like a Virgin",
+            "artist_id": "artist:madonna",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:74488797bdf3",
+            "slug": "lionel-richie",
+            "title": "Lionel Richie",
+            "artist_id": "artist:all-night-long",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e8b08147a832",
+            "slug": "little-bitty-woman",
+            "title": "Little Bitty Woman",
+            "artist_id": "artist:john-primer-bob-corritore",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:7daecdd6397b",
+            "slug": "london-music-works",
+            "title": "London Music Works",
+            "artist_id": "artist:steptoe-and-son",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:f173feedea69",
+            "slug": "manic-monday",
+            "title": "Manic Monday",
+            "artist_id": "artist:the-bangles",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e7bb99a9efc5",
+            "slug": "mark-ayres",
+            "title": "Mark Ayres",
+            "artist_id": "artist:the-bill",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:958a1fa01e1b",
+            "slug": "martika",
+            "title": "Martika",
+            "artist_id": "artist:martika-s-kitchen",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:9d9cf42e9c5b",
+            "slug": "milk-man-blues",
+            "title": "Milk Man Blues",
+            "artist_id": "artist:rory-block",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:03e3b233f314",
+            "slug": "moon-going-down",
+            "title": "Moon Going Down",
+            "artist_id": "artist:seasick-steve",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:db70f211ddfa",
+            "slug": "my-drawers",
+            "title": "My Drawers",
+            "artist_id": "artist:the-time",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:ad4556ac1e2d",
+            "slug": "nola-night",
+            "title": "NOLA Night",
+            "artist_id": "artist:ben-levin",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:2eddc293a9fb",
+            "slug": "need-you-tonight",
+            "title": "Need You Tonight",
+            "artist_id": "artist:inxs",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e7630228d2ec",
+            "slug": "nile-rodgers",
+            "title": "Nile Rodgers",
+            "artist_id": "artist:yum-yum",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:2249cfce125a",
+            "slug": "nona-hendryx",
+            "title": "Nona Hendryx",
+            "artist_id": "artist:baby-go-go",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:3d6096551061",
+            "slug": "notorious",
+            "title": "Notorious",
+            "artist_id": "artist:duran-duran",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:839208e514fe",
+            "slug": "paradise-city",
+            "title": "Paradise City",
+            "artist_id": "artist:guns-n-roses",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:799b1d415163",
+            "slug": "paula-abdul",
+            "title": "Paula Abdul",
+            "artist_id": "artist:opposites-attract",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:1ac1d2072295",
+            "slug": "poe",
+            "title": "Poe",
+            "artist_id": "artist:hey-pretty-drive-by-2001-mix",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:e0e38aebc9df",
+            "slug": "prince",
+            "title": "Prince",
+            "artist_id": "artist:controversy",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:26269349882c",
+            "slug": "prince-the-new-power-generation",
+            "title": "Prince, The New Power Generation",
+            "artist_id": "artist:thunder",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:22ab54493a31",
+            "slug": "quiz-night",
+            "title": "Quiz Night",
+            "artist_id": "artist:reliable-source-music",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:22b99b4576eb",
+            "slug": "ran-so-far-away",
+            "title": "Ran (So Far Away)",
+            "artist_id": "artist:a-flock-of-seagulls",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:2958cd284add",
+            "slug": "raspberry-beret",
+            "title": "Raspberry Beret",
+            "artist_id": "artist:prince-the-revolution",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:aeae8b15350c",
+            "slug": "ready-for-the-world",
+            "title": "Ready For The World",
+            "artist_id": "artist:oh-sheila",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:37f915101bad",
+            "slug": "red-hot-chili-peppers",
+            "title": "Red Hot Chili Peppers",
+            "artist_id": "artist:californication",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:93c9a6675201",
+            "slug": "rick-james",
+            "title": "Rick James",
+            "artist_id": "artist:u-bring-the-freak-out",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:6beb24c679d5",
+            "slug": "rock-this-town",
+            "title": "Rock This Town",
+            "artist_id": "artist:stray-cats",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5b0f80626b2c",
+            "slug": "route-66",
+            "title": "Route 66",
+            "artist_id": "artist:william-shatner-steve-cropper",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:5a1d83334e97",
+            "slug": "say-you-don-t-love-me",
+            "title": "Say You Don't Love Me",
+            "artist_id": "artist:david-kimbrough-jr",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:29534e4a540d",
+            "slug": "she-drives-me-crazy",
+            "title": "She Drives Me Crazy",
+            "artist_id": "artist:fine-young-cannibals",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:6f30e64817eb",
+            "slug": "she-s-like-the-wind-feat-wendy-fraser",
+            "title": "She's Like the Wind (feat. Wendy Fraser)",
+            "artist_id": "artist:patrick-swayze-wendy-fraser",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:61d7fafd77a5",
+            "slug": "should-i-stay-or-should-i-go",
+            "title": "Should I Stay or Should I Go",
+            "artist_id": "artist:the-clash",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:b4410af524d9",
+            "slug": "smokestack-lightnin",
+            "title": "Smokestack Lightnin\u2019",
+            "artist_id": "artist:william-shatner-jeff-skunk-baxter",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:59f7cb3b4d68",
+            "slug": "some-things-change",
+            "title": "Some Things Change",
+            "artist_id": "artist:damon-fowler",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:b29562717cd1",
+            "slug": "stevie-wonder",
+            "title": "Stevie Wonder",
+            "artist_id": "artist:master-blaster-jammin",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:279c44b93db9",
+            "slug": "super-trouper",
+            "title": "Super Trouper",
+            "artist_id": "artist:abba",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:92576b8db627",
+            "slug": "sure-shot",
+            "title": "Sure Shot",
+            "artist_id": "artist:too-slim-and-the-taildraggers",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:4e26741a2103",
+            "slug": "sussudio",
+            "title": "Sussudio",
+            "artist_id": "artist:phil-collins",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:4c49bc6b7dec",
+            "slug": "the-belle-of-st-mark",
+            "title": "The Belle of St. Mark",
+            "artist_id": "artist:shella-e",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:db379c679433",
+            "slug": "the-blue-wrath",
+            "title": "The Blue Wrath",
+            "artist_id": "artist:i-monster",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:fee3b75baded",
+            "slug": "the-look",
+            "title": "The Look",
+            "artist_id": "artist:roxette",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:edc8f5b5a0b1",
+            "slug": "the-primitives",
+            "title": "The Primitives",
+            "artist_id": "artist:crash",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:9d07b9f525bb",
+            "slug": "the-proclaimers",
+            "title": "The Proclaimers",
+            "artist_id": "artist:i-m-gonna-be-500-miles",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:9c3883ace449",
+            "slug": "the-royal-philharmonic-concert-orchestra",
+            "title": "The Royal Philharmonic Concert Orchestra",
+            "artist_id": "artist:the-saint",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:1cab56328f47",
+            "slug": "too-good-for-me",
+            "title": "Too Good for Me",
+            "artist_id": "artist:ben-levin",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:0cc5d5fa9378",
+            "slug": "total-eclipse-of-the-heart",
+            "title": "Total Eclipse of the Heart",
+            "artist_id": "artist:bonnie-tyler",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:f73c686c0b45",
+            "slug": "troubled-man",
+            "title": "Troubled Man",
+            "artist_id": "artist:the-reverend-shawn-amos-the-brotherhood-ruthie-foster",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:66c83ff963b1",
+            "slug": "true",
+            "title": "True",
+            "artist_id": "artist:spandau-ballet",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:883a8a616b58",
+            "slug": "true-colors",
+            "title": "True Colors",
+            "artist_id": "artist:cyndi-lauper",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:ff40fab9af0f",
+            "slug": "turn-me-around",
+            "title": "Turn Me Around",
+            "artist_id": "artist:dave-stewart-thomas-lindsey",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:3547d6707f51",
+            "slug": "turn-up",
+            "title": "Turn Up",
+            "artist_id": "artist:judith-hill",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:094875e1720e",
+            "slug": "wanna-be-startin-somethin",
+            "title": "Wanna Be Startin\u2019 Somethin\u2019",
+            "artist_id": "artist:michael-jackson",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:0570bea1e265",
+            "slug": "we-can-funk",
+            "title": "We Can Funk",
+            "artist_id": "artist:george-clinton-prince",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:ac22f336a57a",
+            "slug": "what-i-like-about-you",
+            "title": "What I Like About You",
+            "artist_id": "artist:the-romantics",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:1ef976a193da",
+            "slug": "when-you-were-mine",
+            "title": "When You Were Mine",
+            "artist_id": "artist:prince",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:fabcd72badfc",
+            "slug": "white-wedding-pt-1",
+            "title": "White Wedding - Pt. 1",
+            "artist_id": "artist:billy-idol",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:0868c6d02d10",
+            "slug": "who-can-it-be-now",
+            "title": "Who Can It Be Now?",
+            "artist_id": "artist:men-at-work",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:a074304469e6",
+            "slug": "wishing-bone-blues",
+            "title": "Wishing Bone Blues",
+            "artist_id": "artist:cristina-vane",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:f8faa5ebc658",
+            "slug": "working-for-the-weekend",
+            "title": "Working for the Weekend",
+            "artist_id": "artist:loverboy",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:ee80dd766725",
+            "slug": "you-can-call-me-al",
+            "title": "You Can Call Me Al",
+            "artist_id": "artist:paul-simon",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        },
+        {
+            "id": "track:c73399a4e8ff",
+            "slug": "zapp",
+            "title": "Zapp",
+            "artist_id": "artist:more-bounce-to-the-ounce",
+            "album_id": null,
+            "duration_seconds": null,
+            "tags": []
+        }
+    ],
+    "shows": [
+        {
+            "id": "show:2021-04-17",
+            "slug": "2021-04-17",
+            "date": "2021-04-17",
+            "title": "Point Break Radio 2021-04-17",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-17/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-17%2F",
+            "published_at": "2021-04-17T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "tags": [],
+            "year": 2021
+        },
+        {
+            "id": "show:2021-04-16",
+            "slug": "2021-04-16",
+            "date": "2021-04-16",
+            "title": "Point Break Radio 2021-04-16",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-16/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-16%2F",
+            "published_at": "2021-04-16T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "tags": [],
+            "year": 2021
+        },
+        {
+            "id": "show:2021-04-15",
+            "slug": "2021-04-15",
+            "date": "2021-04-15",
+            "title": "Point Break Radio 2021-04-15",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-15/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-15%2F",
+            "published_at": "2021-04-15T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "tags": [],
+            "year": 2021
+        }
+    ],
+    "show_tracks": [
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:0e2b974353c1",
+            "order": 1,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:7dad83885db2",
+            "order": 2,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:a074304469e6",
+            "order": 3,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:b0fe9a7ee3f7",
+            "order": 4,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:59f7cb3b4d68",
+            "order": 5,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:d80165b46ec5",
+            "order": 6,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:03e3b233f314",
+            "order": 7,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:1cab56328f47",
+            "order": 8,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:ad4556ac1e2d",
+            "order": 9,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:b4410af524d9",
+            "order": 10,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:5b0f80626b2c",
+            "order": 11,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:8bcb802653b7",
+            "order": 12,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:bf4978f6ad71",
+            "order": 13,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:5a1d83334e97",
+            "order": 14,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:a6d934978814",
+            "order": 15,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:0fd78558f8a1",
+            "order": 16,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:1f2dd57a7e20",
+            "order": 17,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:6139dfeb4e78",
+            "order": 18,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:92576b8db627",
+            "order": 19,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:ff40fab9af0f",
+            "order": 20,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:a47a5c134071",
+            "order": 21,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:44aa1ea93f0a",
+            "order": 22,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:5827f86c3e41",
+            "order": 23,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:97ddf35e2b5b",
+            "order": 24,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:5f3cb30491ef",
+            "order": 25,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:71a7f233f443",
+            "order": 26,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:e8b08147a832",
+            "order": 27,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:f73c686c0b45",
+            "order": 28,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:1837c70cd47c",
+            "order": 29,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:f1c47639665d",
+            "order": 30,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:9d9cf42e9c5b",
+            "order": 31,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-15",
+            "track_id": "track:db379c679433",
+            "order": 32,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:0e2b974353c1",
+            "order": 1,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:1ef976a193da",
+            "order": 2,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:3547d6707f51",
+            "order": 3,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:db70f211ddfa",
+            "order": 4,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:6173fad4bd62",
+            "order": 5,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:4c49bc6b7dec",
+            "order": 6,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:322977caa079",
+            "order": 7,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:0570bea1e265",
+            "order": 8,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:22ab54493a31",
+            "order": 9,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:094875e1720e",
+            "order": 10,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:e7630228d2ec",
+            "order": 11,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:7daecdd6397b",
+            "order": 12,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:e0e38aebc9df",
+            "order": 13,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:e7bb99a9efc5",
+            "order": 14,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:5d93fe7304e2",
+            "order": 15,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:9c3883ace449",
+            "order": 16,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:b29562717cd1",
+            "order": 17,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:c73399a4e8ff",
+            "order": 18,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:93c9a6675201",
+            "order": 19,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:aeae8b15350c",
+            "order": 20,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:958a1fa01e1b",
+            "order": 21,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:2249cfce125a",
+            "order": 22,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:799b1d415163",
+            "order": 23,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:74488797bdf3",
+            "order": 24,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:13b33b401278",
+            "order": 25,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:26e12eb55242",
+            "order": 26,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:edc8f5b5a0b1",
+            "order": 27,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:9d07b9f525bb",
+            "order": 28,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:bdf10570b43e",
+            "order": 29,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:1ac1d2072295",
+            "order": 30,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:37f915101bad",
+            "order": 31,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:26269349882c",
+            "order": 32,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-16",
+            "track_id": "track:db379c679433",
+            "order": 32,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:0e2b974353c1",
+            "order": 1,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:0cc5d5fa9378",
+            "order": 2,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:e121cb8a10be",
+            "order": 3,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:279c44b93db9",
+            "order": 4,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:fee3b75baded",
+            "order": 5,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:29534e4a540d",
+            "order": 6,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:f173feedea69",
+            "order": 7,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:1b4455a5debb",
+            "order": 8,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:ac22f336a57a",
+            "order": 9,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:6beb24c679d5",
+            "order": 10,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:883a8a616b58",
+            "order": 11,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:3f7ae533fa80",
+            "order": 12,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:6f30e64817eb",
+            "order": 13,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:f8faa5ebc658",
+            "order": 14,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:0868c6d02d10",
+            "order": 15,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:22b99b4576eb",
+            "order": 16,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:4402b8dff666",
+            "order": 17,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:fabcd72badfc",
+            "order": 18,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:839208e514fe",
+            "order": 19,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:61d7fafd77a5",
+            "order": 20,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:2eddc293a9fb",
+            "order": 21,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:78de3cc96f9b",
+            "order": 22,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:5057bf150b3b",
+            "order": 23,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:4e26741a2103",
+            "order": 24,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:ee80dd766725",
+            "order": 25,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:e56924d98d7d",
+            "order": 26,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:2958cd284add",
+            "order": 27,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:a2d79156aad0",
+            "order": 28,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:3d6096551061",
+            "order": 29,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:66c83ff963b1",
+            "order": 30,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:e67f8314179b",
+            "order": 31,
+            "tags": []
+        },
+        {
+            "show_id": "show:2021-04-17",
+            "track_id": "track:db379c679433",
+            "order": 32,
+            "tags": []
+        }
+    ]
+}

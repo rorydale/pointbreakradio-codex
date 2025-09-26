@@ -1,76 +1,825 @@
 {
-  "shows": [
-    {
-      "slug": "neon-undertow",
-      "title": "Neon Undertow: Midnight Relay",
-      "description": "A saturated blend of late-night synth frequencies, pirate dispatches, and deep cuts from the underground wave scene.",
-      "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/neon-undertow-midnight-relay/",
-      "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2Fneon-undertow-midnight-relay%2F",
-      "published_at": "2024-02-18T22:30:00Z",
-      "duration_seconds": 3660,
-      "hero_image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
-      "year": 2024,
-      "tags": ["synth", "wave", "night ride"],
-      "tracks": [
+    "shows": [
         {
-          "title": "Ocean Static",
-          "artist": "Lumen Drift",
-          "album": "Signal Bloom",
-          "duration_seconds": 280,
-          "mood": "wave"
+            "slug": "2021-04-17",
+            "title": "Point Break Radio 2021-04-17",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-17/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-17%2F",
+            "published_at": "2021-04-17T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "year": 2021,
+            "tags": [],
+            "tracks": [
+                {
+                    "title": "BND",
+                    "artist": "No Doubt",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 1,
+                    "tags": []
+                },
+                {
+                    "title": "Total Eclipse of the Heart",
+                    "artist": "Bonnie Tyler",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 2,
+                    "tags": []
+                },
+                {
+                    "title": "Forever Young",
+                    "artist": "Alphaville",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 3,
+                    "tags": []
+                },
+                {
+                    "title": "Super Trouper",
+                    "artist": "Abba",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 4,
+                    "tags": []
+                },
+                {
+                    "title": "The Look",
+                    "artist": "Roxette",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 5,
+                    "tags": []
+                },
+                {
+                    "title": "She Drives Me Crazy",
+                    "artist": "Fine Young Cannibals",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 6,
+                    "tags": []
+                },
+                {
+                    "title": "Manic Monday",
+                    "artist": "The Bangles",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 7,
+                    "tags": []
+                },
+                {
+                    "title": "Don't Leave Me This Way (with Sarah Jane Morris)",
+                    "artist": "The Communards, Sarah Jane Morris",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 8,
+                    "tags": []
+                },
+                {
+                    "title": "What I Like About You",
+                    "artist": "The Romantics",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 9,
+                    "tags": []
+                },
+                {
+                    "title": "Rock This Town",
+                    "artist": "Stray Cats",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 10,
+                    "tags": []
+                },
+                {
+                    "title": "True Colors",
+                    "artist": "Cyndi Lauper",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 11,
+                    "tags": []
+                },
+                {
+                    "title": "Drive",
+                    "artist": "The Cars",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 12,
+                    "tags": []
+                },
+                {
+                    "title": "She's Like the Wind (feat. Wendy Fraser)",
+                    "artist": "Patrick Swayze, Wendy Fraser",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 13,
+                    "tags": []
+                },
+                {
+                    "title": "Working for the Weekend",
+                    "artist": "Loverboy",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 14,
+                    "tags": []
+                },
+                {
+                    "title": "Who Can It Be Now?",
+                    "artist": "Men At Work",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 15,
+                    "tags": []
+                },
+                {
+                    "title": "Ran (So Far Away)",
+                    "artist": "A Flock Of Seagulls",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 16,
+                    "tags": []
+                },
+                {
+                    "title": "Burning Down the House",
+                    "artist": "Talking Heads",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 17,
+                    "tags": []
+                },
+                {
+                    "title": "White Wedding - Pt. 1",
+                    "artist": "Billy Idol",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 18,
+                    "tags": []
+                },
+                {
+                    "title": "Paradise City",
+                    "artist": "Guns N\u2019 Roses",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 19,
+                    "tags": []
+                },
+                {
+                    "title": "Should I Stay or Should I Go",
+                    "artist": "The Clash",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 20,
+                    "tags": []
+                },
+                {
+                    "title": "Need You Tonight",
+                    "artist": "INXS",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 21,
+                    "tags": []
+                },
+                {
+                    "title": "Beds Are Burning",
+                    "artist": "Midnight Oil",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 22,
+                    "tags": []
+                },
+                {
+                    "title": "Faith",
+                    "artist": "George Michael",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 23,
+                    "tags": []
+                },
+                {
+                    "title": "Sussudio",
+                    "artist": "Phil Collins",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 24,
+                    "tags": []
+                },
+                {
+                    "title": "You Can Call Me Al",
+                    "artist": "Paul Simon",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 25,
+                    "tags": []
+                },
+                {
+                    "title": "Higher Love",
+                    "artist": "Steve Winwood",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 26,
+                    "tags": []
+                },
+                {
+                    "title": "Raspberry Beret",
+                    "artist": "Prince, The Revolution",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 27,
+                    "tags": []
+                },
+                {
+                    "title": "Like a Virgin",
+                    "artist": "Madonna",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 28,
+                    "tags": []
+                },
+                {
+                    "title": "Notorious",
+                    "artist": "Duran Duran",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 29,
+                    "tags": []
+                },
+                {
+                    "title": "True",
+                    "artist": "Spandau Ballet",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 30,
+                    "tags": []
+                },
+                {
+                    "title": "Head Over Heels / Broken",
+                    "artist": "Tears For Fears",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 31,
+                    "tags": []
+                },
+                {
+                    "title": "The Blue Wrath",
+                    "artist": "I Monster",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 32,
+                    "tags": []
+                }
+            ],
+            "_ft": "Point Break Radio 2021-04-17 https://www.mixcloud.com/pointbreakradio/2021-04-17/ BND No Doubt Total Eclipse of the Heart Bonnie Tyler Forever Young Alphaville Super Trouper Abba The Look Roxette She Drives Me Crazy Fine Young Cannibals Manic Monday The Bangles Don't Leave Me This Way (with Sarah Jane Morris) The Communards, Sarah Jane Morris What I Like About You The Romantics Rock This Town Stray Cats True Colors Cyndi Lauper Drive The Cars She's Like the Wind (feat. Wendy Fraser) Patrick Swayze, Wendy Fraser Working for the Weekend Loverboy Who Can It Be Now? Men At Work Ran (So Far Away) A Flock Of Seagulls Burning Down the House Talking Heads White Wedding - Pt. 1 Billy Idol Paradise City Guns N\u2019 Roses Should I Stay or Should I Go The Clash Need You Tonight INXS Beds Are Burning Midnight Oil Faith George Michael Sussudio Phil Collins You Can Call Me Al Paul Simon Higher Love Steve Winwood Raspberry Beret Prince, The Revolution Like a Virgin Madonna Notorious Duran Duran True Spandau Ballet Head Over Heels / Broken Tears For Fears The Blue Wrath I Monster"
         },
         {
-          "title": "Neon Undertow",
-          "artist": "The Breakers",
-          "album": "Pirate Transmissions",
-          "duration_seconds": 310,
-          "mood": "synth"
+            "slug": "2021-04-16",
+            "title": "Point Break Radio 2021-04-16",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-16/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-16%2F",
+            "published_at": "2021-04-16T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "year": 2021,
+            "tags": [],
+            "tracks": [
+                {
+                    "title": "BND",
+                    "artist": "No Doubt",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 1,
+                    "tags": []
+                },
+                {
+                    "title": "When You Were Mine",
+                    "artist": "Prince",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 2,
+                    "tags": []
+                },
+                {
+                    "title": "Turn Up",
+                    "artist": "Judith Hill",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 3,
+                    "tags": []
+                },
+                {
+                    "title": "My Drawers",
+                    "artist": "The Time",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 4,
+                    "tags": []
+                },
+                {
+                    "title": "Could Never Take The Place Of Your Man",
+                    "artist": "Prince",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 5,
+                    "tags": []
+                },
+                {
+                    "title": "The Belle of St. Mark",
+                    "artist": "Shella E.",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 6,
+                    "tags": []
+                },
+                {
+                    "title": "I'm Only Dreaming",
+                    "artist": "Sidibe",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 7,
+                    "tags": []
+                },
+                {
+                    "title": "We Can Funk",
+                    "artist": "George Clinton, Prince",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 8,
+                    "tags": []
+                },
+                {
+                    "title": "Quiz Night",
+                    "artist": "Reliable Source Music",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 9,
+                    "tags": []
+                },
+                {
+                    "title": "Wanna Be Startin\u2019 Somethin\u2019",
+                    "artist": "Michael Jackson",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 10,
+                    "tags": []
+                },
+                {
+                    "title": "Nile Rodgers",
+                    "artist": "Yum-Yum",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 11,
+                    "tags": []
+                },
+                {
+                    "title": "London Music Works",
+                    "artist": "Steptoe And Son",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 12,
+                    "tags": []
+                },
+                {
+                    "title": "Prince",
+                    "artist": "Controversy",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 13,
+                    "tags": []
+                },
+                {
+                    "title": "Mark Ayres",
+                    "artist": "The Bill",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 14,
+                    "tags": []
+                },
+                {
+                    "title": "Cameo",
+                    "artist": "Word Up",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 15,
+                    "tags": []
+                },
+                {
+                    "title": "The Royal Philharmonic Concert Orchestra",
+                    "artist": "The Saint",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 16,
+                    "tags": []
+                },
+                {
+                    "title": "Stevie Wonder",
+                    "artist": "Master Blaster (Jammin\u2019)",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 17,
+                    "tags": []
+                },
+                {
+                    "title": "Zapp",
+                    "artist": "More Bounce to the Ounce",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 18,
+                    "tags": []
+                },
+                {
+                    "title": "Rick James",
+                    "artist": "U Bring The Freak Out",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 19,
+                    "tags": []
+                },
+                {
+                    "title": "Ready For The World",
+                    "artist": "Oh Sheila",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 20,
+                    "tags": []
+                },
+                {
+                    "title": "Martika",
+                    "artist": "Martika's Kitchen",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 21,
+                    "tags": []
+                },
+                {
+                    "title": "Nona Hendryx",
+                    "artist": "Baby Go-Go",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 22,
+                    "tags": []
+                },
+                {
+                    "title": "Paula Abdul",
+                    "artist": "Opposites Attract",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 23,
+                    "tags": []
+                },
+                {
+                    "title": "Lionel Richie",
+                    "artist": "All Night Long",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 24,
+                    "tags": []
+                },
+                {
+                    "title": "Beats International",
+                    "artist": "Won't Talk About It",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 25,
+                    "tags": []
+                },
+                {
+                    "title": "LEN",
+                    "artist": "Steal My Sunshine",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 26,
+                    "tags": []
+                },
+                {
+                    "title": "The Primitives",
+                    "artist": "Crash",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 27,
+                    "tags": []
+                },
+                {
+                    "title": "The Proclaimers",
+                    "artist": "I\u2019m Gonna Be (500 Miles)",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 28,
+                    "tags": []
+                },
+                {
+                    "title": "Bran Van 3000",
+                    "artist": "Drinking in L.A.",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 29,
+                    "tags": []
+                },
+                {
+                    "title": "Poe",
+                    "artist": "Hey Pretty (Drive-By 2001 Mix)",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 30,
+                    "tags": []
+                },
+                {
+                    "title": "Red Hot Chili Peppers",
+                    "artist": "Californication",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 31,
+                    "tags": []
+                },
+                {
+                    "title": "Prince, The New Power Generation",
+                    "artist": "Thunder",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 32,
+                    "tags": []
+                },
+                {
+                    "title": "The Blue Wrath",
+                    "artist": "I Monster",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 32,
+                    "tags": []
+                }
+            ],
+            "_ft": "Point Break Radio 2021-04-16 https://www.mixcloud.com/pointbreakradio/2021-04-16/ BND No Doubt When You Were Mine Prince Turn Up Judith Hill My Drawers The Time Could Never Take The Place Of Your Man Prince The Belle of St. Mark Shella E. I'm Only Dreaming Sidibe We Can Funk George Clinton, Prince Quiz Night Reliable Source Music Wanna Be Startin\u2019 Somethin\u2019 Michael Jackson Nile Rodgers Yum-Yum London Music Works Steptoe And Son Prince Controversy Mark Ayres The Bill Cameo Word Up The Royal Philharmonic Concert Orchestra The Saint Stevie Wonder Master Blaster (Jammin\u2019) Zapp More Bounce to the Ounce Rick James U Bring The Freak Out Ready For The World Oh Sheila Martika Martika's Kitchen Nona Hendryx Baby Go-Go Paula Abdul Opposites Attract Lionel Richie All Night Long Beats International Won't Talk About It LEN Steal My Sunshine The Primitives Crash The Proclaimers I\u2019m Gonna Be (500 Miles) Bran Van 3000 Drinking in L.A. Poe Hey Pretty (Drive-By 2001 Mix) Red Hot Chili Peppers Californication Prince, The New Power Generation Thunder The Blue Wrath I Monster"
         },
         {
-          "title": "Voltage Kiss",
-          "artist": "Glass Harbor",
-          "album": "After Hours",
-          "duration_seconds": 256,
-          "mood": "dream"
+            "slug": "2021-04-15",
+            "title": "Point Break Radio 2021-04-15",
+            "description": "",
+            "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-15/",
+            "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-15%2F",
+            "published_at": "2021-04-15T00:00:00Z",
+            "duration_seconds": null,
+            "hero_image": "",
+            "year": 2021,
+            "tags": [],
+            "tracks": [
+                {
+                    "title": "BND",
+                    "artist": "No Doubt",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 1,
+                    "tags": []
+                },
+                {
+                    "title": "Blueberry Hill",
+                    "artist": "Cristina Vane",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 2,
+                    "tags": []
+                },
+                {
+                    "title": "Wishing Bone Blues",
+                    "artist": "Cristina Vane",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 3,
+                    "tags": []
+                },
+                {
+                    "title": "Leave It Alone",
+                    "artist": "Damon Fowler",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 4,
+                    "tags": []
+                },
+                {
+                    "title": "Some Things Change",
+                    "artist": "Damon Fowler",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 5,
+                    "tags": []
+                },
+                {
+                    "title": "Fred's Worried Blues",
+                    "artist": "Seasick Steve",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 6,
+                    "tags": []
+                },
+                {
+                    "title": "Moon Going Down",
+                    "artist": "Seasick Steve",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 7,
+                    "tags": []
+                },
+                {
+                    "title": "Too Good for Me",
+                    "artist": "Ben Levin",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 8,
+                    "tags": []
+                },
+                {
+                    "title": "NOLA Night",
+                    "artist": "Ben Levin",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 9,
+                    "tags": []
+                },
+                {
+                    "title": "Smokestack Lightnin\u2019",
+                    "artist": "William Shatner, Jeff \"Skunk\" Baxter",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 10,
+                    "tags": []
+                },
+                {
+                    "title": "Route 66",
+                    "artist": "William Shatner, Steve Cropper",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 11,
+                    "tags": []
+                },
+                {
+                    "title": "Down in Mississippi",
+                    "artist": "Bobby Rush",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 12,
+                    "tags": []
+                },
+                {
+                    "title": "Honey Bee, Sail On",
+                    "artist": "Bobby Rush",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 13,
+                    "tags": []
+                },
+                {
+                    "title": "Say You Don't Love Me",
+                    "artist": "David Kimbrough Jr.",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 14,
+                    "tags": []
+                },
+                {
+                    "title": "Done Get Old",
+                    "artist": "David Kimbrough Jr.",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 15,
+                    "tags": []
+                },
+                {
+                    "title": "Deep Sea Diver",
+                    "artist": "Mojo Buford",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 16,
+                    "tags": []
+                },
+                {
+                    "title": "Got My Mojo Working",
+                    "artist": "Mojo Buford",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 17,
+                    "tags": []
+                },
+                {
+                    "title": "Last Last Chance",
+                    "artist": "Too Slim And The Taildraggers",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 18,
+                    "tags": []
+                },
+                {
+                    "title": "Sure Shot",
+                    "artist": "Too Slim And The Taildraggers",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 19,
+                    "tags": []
+                },
+                {
+                    "title": "Turn Me Around",
+                    "artist": "Dave Stewart, Thomas Lindsey",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 20,
+                    "tags": []
+                },
+                {
+                    "title": "Brothers in Arms",
+                    "artist": "Dave Stewart, Thomas Lindsey",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 21,
+                    "tags": []
+                },
+                {
+                    "title": "All of My Lovin\u2019",
+                    "artist": "Shirley King, Joe Louis Walker",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 22,
+                    "tags": []
+                },
+                {
+                    "title": "Feelin\u2019 Alright?",
+                    "artist": "Shirley King, Duke Robillard",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 23,
+                    "tags": []
+                },
+                {
+                    "title": "Evil Gal Blues",
+                    "artist": "Blues Escape, Johanna Lillvik",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 24,
+                    "tags": []
+                },
+                {
+                    "title": "Junker Blues",
+                    "artist": "Blues Escape, Johanna Lillvik",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 25,
+                    "tags": []
+                },
+                {
+                    "title": "Keep A-Driving",
+                    "artist": "John Primer, Bob Corritore",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 26,
+                    "tags": []
+                },
+                {
+                    "title": "Little Bitty Woman",
+                    "artist": "John Primer, Bob Corritore",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 27,
+                    "tags": []
+                },
+                {
+                    "title": "Troubled Man",
+                    "artist": "The Reverend Shawn Amos, The Brotherhood, Ruthie Foster",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 28,
+                    "tags": []
+                },
+                {
+                    "title": "27 Dollars",
+                    "artist": "The Reverend Shawn Amos, The Brotherhood",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 29,
+                    "tags": []
+                },
+                {
+                    "title": "He May Be Your Man",
+                    "artist": "Rory Block",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 30,
+                    "tags": []
+                },
+                {
+                    "title": "Milk Man Blues",
+                    "artist": "Rory Block",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 31,
+                    "tags": []
+                },
+                {
+                    "title": "The Blue Wrath",
+                    "artist": "I Monster",
+                    "album": null,
+                    "duration_seconds": null,
+                    "order": 32,
+                    "tags": []
+                }
+            ],
+            "_ft": "Point Break Radio 2021-04-15 https://www.mixcloud.com/pointbreakradio/2021-04-15/ BND No Doubt Blueberry Hill Cristina Vane Wishing Bone Blues Cristina Vane Leave It Alone Damon Fowler Some Things Change Damon Fowler Fred's Worried Blues Seasick Steve Moon Going Down Seasick Steve Too Good for Me Ben Levin NOLA Night Ben Levin Smokestack Lightnin\u2019 William Shatner, Jeff \"Skunk\" Baxter Route 66 William Shatner, Steve Cropper Down in Mississippi Bobby Rush Honey Bee, Sail On Bobby Rush Say You Don't Love Me David Kimbrough Jr. Done Get Old David Kimbrough Jr. Deep Sea Diver Mojo Buford Got My Mojo Working Mojo Buford Last Last Chance Too Slim And The Taildraggers Sure Shot Too Slim And The Taildraggers Turn Me Around Dave Stewart, Thomas Lindsey Brothers in Arms Dave Stewart, Thomas Lindsey All of My Lovin\u2019 Shirley King, Joe Louis Walker Feelin\u2019 Alright? Shirley King, Duke Robillard Evil Gal Blues Blues Escape, Johanna Lillvik Junker Blues Blues Escape, Johanna Lillvik Keep A-Driving John Primer, Bob Corritore Little Bitty Woman John Primer, Bob Corritore Troubled Man The Reverend Shawn Amos, The Brotherhood, Ruthie Foster 27 Dollars The Reverend Shawn Amos, The Brotherhood He May Be Your Man Rory Block Milk Man Blues Rory Block The Blue Wrath I Monster"
         }
-      ],
-      "_ft": "Neon Undertow Midnight Relay saturated blend late-night synth frequencies pirate dispatch underground wave Ocean Static Lumen Drift Voltage Kiss"
-    },
-    {
-      "slug": "skyline-drift",
-      "title": "Skyline Drift: Rooftop Broadcast 07",
-      "description": "Live from the garage rooftop, a hazy cocktail of Balearic edits, shuffling house, and whispered field recordings.",
-      "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/skyline-drift-rooftop-broadcast-07/",
-      "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2Fskyline-drift-rooftop-broadcast-07%2F",
-      "published_at": "2023-11-04T19:00:00Z",
-      "duration_seconds": 4020,
-      "hero_image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-      "year": 2023,
-      "tags": ["balearic", "house", "sunset"],
-      "tracks": [
-        {
-          "title": "Pool Day",
-          "artist": "Verano Ghost",
-          "album": "Soft Current",
-          "duration_seconds": 320,
-          "mood": "balearic"
-        },
-        {
-          "title": "Low Orbit",
-          "artist": "Echo Commerce",
-          "album": "Runway Lights",
-          "duration_seconds": 295,
-          "mood": "house"
-        },
-        {
-          "title": "Sunset Relay",
-          "artist": "Jaguar Shore",
-          "album": "Sky Broadcast",
-          "duration_seconds": 360,
-          "mood": "sunset"
-        }
-      ],
-      "_ft": "Skyline Drift Rooftop Broadcast Balearic edits shuffling house whispered field recordings Pool Day Verano Ghost Low Orbit Echo Commerce"
-    }
-  ]
+    ]
 }

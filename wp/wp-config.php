@@ -21,16 +21,16 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'db' );
+// define( 'DB_NAME', 'db' );
 
 /** Database username */
-define( 'DB_USER', 'db' );
+// define( 'DB_USER', 'db' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'db' );
+// define( 'DB_PASSWORD', 'db' );
 
 /** Database hostname */
-define( 'DB_HOST', 'db' );
+// define( 'DB_HOST', 'db' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -103,4 +103,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Sets up WordPress vars and included files. */
+// Include for ddev-managed settings in wp-config-ddev.php.
+$ddev_settings = __DIR__ . '/wp-config-ddev.php';
+if (is_readable($ddev_settings) && ! defined('DB_USER')) {
+    require_once $ddev_settings;
+}
+
 require_once ABSPATH . 'wp-settings.php';

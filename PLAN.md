@@ -41,9 +41,9 @@
 3. [ ] Typography pairing finalized for masthead vs content vs monospace metadata.
 
 ### Data Migration
-- [ ] Document identical endpoint response shapes to ease JSON → MySQL migration later.
+- [x] Document identical endpoint response shapes to ease JSON → MySQL migration later (see `tools/import-shows.php` and generated `data/library.json`).
 
 ### Operational
 1. [x] DDEV configuration commands documented.
 2. [x] Theme and plugin autoload bootstrap verified.
-3. [x] JSON seed data kept in sync with REST outputs.
+3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
