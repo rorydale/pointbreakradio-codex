@@ -564,15 +564,22 @@ class MixcloudEnricher
             $show['_enriched'] = true;
         }
 
-        if (empty($show['tags']) && ! empty($data['tags']) && is_array($data['tags'])) {
+        if (! empty($data['tags']) && is_array($data['tags'])) {
             $normalizedTags = [];
             foreach ($data['tags'] as $tag) {
-                if (is_array($tag) && isset($tag['name'])) {
-                    $normalizedTags[] = strtolower(trim((string) $tag['name']));
+                if (! is_array($tag) || empty($tag['name'])) {
+                    continue;
                 }
+                $name = trim((string) $tag['name']);
+                if ($name === '') {
+                    continue;
+                }
+                $normalizedTags[] = strtolower($name);
             }
+
             if ($normalizedTags) {
                 $show['tags'] = array_values(array_unique(array_merge($show['tags'], $normalizedTags)));
+                $show['_enriched'] = true;
             }
         }
 
