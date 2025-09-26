@@ -3,15 +3,26 @@
 
 declare(strict_types=1);
 
+$options = $argv;
+$useMixcloud = in_array('--mixcloud', $options, true);
+
 $projectRoot = dirname(__DIR__);
 $importDir   = $projectRoot . '/data/import';
 $metaDir     = $importDir . '/meta';
 $outputShows = $projectRoot . '/data/shows.json';
 $outputLibrary = $projectRoot . '/data/library.json';
+$cacheDir    = $projectRoot . '/data/cache/mixcloud';
 
 if (! is_dir($importDir)) {
     fwrite(STDERR, "Import directory not found: {$importDir}\n");
     exit(1);
+}
+
+if ($useMixcloud && ! is_dir($cacheDir)) {
+    if (! mkdir($cacheDir, 0775, true) && ! is_dir($cacheDir)) {
+        fwrite(STDERR, "Failed to create Mixcloud cache directory at {$cacheDir}\n");
+        exit(1);
+    }
 }
 
 $csvFiles = glob($importDir . '/*.csv');
@@ -19,6 +30,9 @@ if (! $csvFiles) {
     fwrite(STDOUT, "No CSV files found in {$importDir}.\n");
     exit(0);
 }
+
+$mixcloudClient = $useMixcloud ? new MixcloudClient('pointbreakradio', $cacheDir) : null;
+$mixcloudEnricher = $mixcloudClient ? new MixcloudEnricher($mixcloudClient) : null;
 
 $artists = [];
 $artistMap = [];
@@ -104,7 +118,7 @@ foreach ($csvFiles as $csvPath) {
     $mixcloudUrl = $meta['mixcloud_url'] ?? buildMixcloudUrl($mixcloudPath);
     $mixcloudEmbedUrl = $meta['mixcloud_embed_url'] ?? buildMixcloudEmbedUrl($mixcloudPath);
 
-    $shows[$showId] = [
+    $showRecord = [
         'id' => $showId,
         'slug' => $showSlug,
         'date' => $slugDate,
@@ -117,7 +131,14 @@ foreach ($csvFiles as $csvPath) {
         'hero_image' => $meta['hero_image'] ?? '',
         'tags' => isset($meta['tags']) && is_array($meta['tags']) ? array_values(array_unique($meta['tags'])) : [],
         'year' => $year,
+        '_enriched' => false,
     ];
+
+    if ($mixcloudEnricher) {
+        $showRecord = $mixcloudEnricher->enrich($showRecord, $slugDate);
+    }
+
+    $shows[$showId] = $showRecord;
 }
 
 if (! $shows) {
@@ -133,7 +154,7 @@ usort($showTracks, static function (array $a, array $b): int {
     return strcmp($a['show_id'], $b['show_id']);
 });
 
-uasort($tracks, static function (array $a, array $b): int {
+usort($tracks, static function (array $a, array $b): int {
     return strcmp($a['title'], $b['title']);
 });
 
@@ -208,13 +229,24 @@ foreach ($library['shows'] as $show) {
         'tags' => $show['tags'],
         'tracks' => $trackPayload,
         '_ft' => buildFullText($show, $trackPayload),
+        '_enriched' => $show['_enriched'],
     ];
 }
 
 writeJson($outputShows, ['shows' => $denormalised]);
 
-fwrite(STDOUT, sprintf("Imported %d shows → %s\n", count($denormalised), $outputShows));
+$mixcloudNotice = $useMixcloud
+    ? 'Mixcloud enrichment enabled (cached responses stored in data/cache/mixcloud).'
+    : 'Mixcloud enrichment skipped. Pass --mixcloud to enable remote lookups.';
 
+fwrite(STDOUT, sprintf(
+    "Imported %d shows → %s\n%s\n",
+    count($denormalised),
+    $outputShows,
+    $mixcloudNotice
+));
+
+// Helper functions
 function normaliseHeaders(array $headers): array
 {
     return array_map(static function ($header) {
@@ -350,6 +382,9 @@ function buildFullText(array $show, array $tracks): string
         $parts[] = $track['title'] ?? '';
         $parts[] = $track['artist'] ?? '';
         $parts[] = $track['album'] ?? '';
+        if (! empty($track['tags'])) {
+            $parts[] = implode(' ', (array) $track['tags']);
+        }
     }
 
     return trim(preg_replace('/\s+/', ' ', implode(' ', $parts)));
@@ -365,4 +400,218 @@ function mapById(array $items): array
     }
 
     return $map;
+}
+
+class MixcloudClient
+{
+    private const BASE = 'https://api.mixcloud.com';
+    private const USER_AGENT = 'PointBreakRadio Importer/0.1';
+    private const CACHE_TTL = 86400;
+    private float $lastRequest = 0.0;
+
+    public function __construct(private string $profile, private string $cacheDir)
+    {
+    }
+
+    public function fetchShow(string $slug): ?array
+    {
+        $path = sprintf('/%s/%s/', $this->profile, $slug);
+        $content = $this->request($path, $slug . '-show.json');
+        if (! $content) {
+            return null;
+        }
+
+        $decoded = json_decode($content, true);
+        return is_array($decoded) ? $decoded : null;
+    }
+
+    public function fetchEmbedHtml(string $slug): ?string
+    {
+        $path = sprintf('/%s/%s/embed-html/', $this->profile, $slug);
+        $content = $this->request($path, $slug . '-embed.html');
+        if (! $content) {
+            return null;
+        }
+
+        $decoded = json_decode($content, true);
+        if (is_array($decoded) && isset($decoded['html'])) {
+            return (string) $decoded['html'];
+        }
+
+        return $content;
+    }
+
+    private function request(string $path, string $cacheKey): ?string
+    {
+        $cacheFile = $this->cacheDir . '/' . $cacheKey;
+        if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < self::CACHE_TTL) {
+            $contents = file_get_contents($cacheFile);
+            return $contents === false ? null : $contents;
+        }
+
+        $this->throttle();
+
+        $url = self::BASE . $path;
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 12,
+            CURLOPT_USERAGENT => self::USER_AGENT,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+        ]);
+
+        $response = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $err = curl_error($ch);
+        curl_close($ch);
+        $this->lastRequest = microtime(true);
+
+        if ($response === false || $status >= 400) {
+            fwrite(STDERR, sprintf("Mixcloud request failed (%s): %s\n", $url, $err ?: 'HTTP ' . $status));
+            return null;
+        }
+
+        file_put_contents($cacheFile, $response);
+
+        return $response;
+    }
+
+    private function throttle(): void
+    {
+        if ($this->lastRequest <= 0) {
+            return;
+        }
+
+        $elapsed = microtime(true) - $this->lastRequest;
+        $minimumGap = 0.5;
+        if ($elapsed < $minimumGap) {
+            usleep((int) (($minimumGap - $elapsed) * 1_000_000));
+        }
+    }
+}
+
+class MixcloudEnricher
+{
+    public function __construct(private MixcloudClient $client)
+    {
+    }
+
+    public function enrich(array $show, string $slug): array
+    {
+        $needs = $this->needsEnrichment($show);
+        if (! $needs) {
+            return $show;
+        }
+
+        $data = $this->client->fetchShow($slug);
+        if ($data) {
+            $show = $this->mergeShowData($show, $data);
+        }
+
+        if (empty($show['mixcloud_embed_url'])) {
+            $embedHtml = $this->client->fetchEmbedHtml($slug);
+            $embedSrc = $this->extractEmbedSrc($embedHtml);
+            if ($embedSrc) {
+                $show['mixcloud_embed_url'] = $embedSrc;
+                $show['_enriched'] = true;
+            }
+        }
+
+        return $show;
+    }
+
+    private function needsEnrichment(array $show): bool
+    {
+        $defaultTitle = isset($show['date']) ? 'Point Break Radio ' . $show['date'] : null;
+        $titleMissing = empty($show['title']) || $show['title'] === $defaultTitle;
+        $descriptionMissing = empty($show['description']);
+        $embedMissing = empty($show['mixcloud_embed_url']);
+        $imageMissing = empty($show['hero_image']);
+
+        return $titleMissing || $descriptionMissing || $embedMissing || $imageMissing;
+    }
+
+    private function mergeShowData(array $show, array $data): array
+    {
+        if (! empty($data['name'])) {
+            $show['title'] = $data['name'];
+            $show['_enriched'] = true;
+        }
+
+        if (! empty($data['description']) && empty($show['description'])) {
+            $show['description'] = $data['description'];
+            $show['_enriched'] = true;
+        }
+
+        if (! empty($data['audio_length']) && empty($show['duration_seconds'])) {
+            $show['duration_seconds'] = (int) $data['audio_length'];
+            $show['_enriched'] = true;
+        }
+
+        if (! empty($data['created_time']) && empty($show['published_at'])) {
+            $show['published_at'] = $data['created_time'];
+            $show['_enriched'] = true;
+        }
+
+        if (! empty($data['url'])) {
+            $show['mixcloud_url'] = $this->resolveUrl($data['url']);
+        }
+
+        if (! empty($data['pictures']) && empty($show['hero_image'])) {
+            $show['hero_image'] = $this->resolvePicture($data['pictures']);
+            $show['_enriched'] = true;
+        }
+
+        if (empty($show['tags']) && ! empty($data['tags']) && is_array($data['tags'])) {
+            $normalizedTags = [];
+            foreach ($data['tags'] as $tag) {
+                if (is_array($tag) && isset($tag['name'])) {
+                    $normalizedTags[] = strtolower(trim((string) $tag['name']));
+                }
+            }
+            if ($normalizedTags) {
+                $show['tags'] = array_values(array_unique(array_merge($show['tags'], $normalizedTags)));
+            }
+        }
+
+        return $show;
+    }
+
+    private function resolveUrl(string $value): string
+    {
+        if (str_starts_with($value, 'http')) {
+            return $value;
+        }
+
+        return 'https://www.mixcloud.com' . $value;
+    }
+
+    private function resolvePicture(array $pictures): string
+    {
+        foreach (['extra_large', 'large', 'medium'] as $key) {
+            if (! empty($pictures[$key])) {
+                return (string) $pictures[$key];
+            }
+        }
+
+        return '';
+    }
+
+    private function extractEmbedSrc(?string $html): ?string
+    {
+        if (! $html) {
+            return null;
+        }
+
+        if (preg_match('/src\s*=\s*"([^"]+)"/i', $html, $matches)) {
+            $src = trim($matches[1]);
+            if ($src !== '') {
+                return $src;
+            }
+        }
+
+        return null;
+    }
 }

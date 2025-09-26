@@ -47,3 +47,4 @@
 1. [x] DDEV configuration commands documented.
 2. [x] Theme and plugin autoload bootstrap verified.
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
+4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
