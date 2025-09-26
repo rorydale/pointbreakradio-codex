@@ -303,9 +303,6 @@
             const meta = document.createElement('div');
             meta.className = 'show-card__meta';
             const metaParts = [];
-            if (show.year) {
-                metaParts.push(show.year);
-            }
             if (show.duration_seconds) {
                 metaParts.push(formatDuration(show.duration_seconds));
             }
@@ -443,9 +440,6 @@
         const meta = document.createElement('p');
         meta.className = 'show-drawer__meta';
         const metaPieces = [];
-        if (show.year) {
-            metaPieces.push(show.year);
-        }
         if (show.duration_seconds) {
             metaPieces.push(formatDuration(show.duration_seconds));
         }
