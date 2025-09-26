@@ -536,13 +536,22 @@ class MixcloudEnricher
     private function mergeShowData(array $show, array $data): array
     {
         if (! empty($data['name'])) {
-            $show['title'] = $data['name'];
+            [$niceDate, $niceTitle] = $this->splitHumanReadableTitle((string) $data['name']);
+            if ($niceTitle) {
+                $show['title'] = $niceTitle;
+                if ($niceDate) {
+                    $show['human_date'] = $niceDate;
+                }
+            }
             $show['_enriched'] = true;
         }
 
-        if (! empty($data['description']) && empty($show['description'])) {
-            $show['description'] = $data['description'];
-            $show['_enriched'] = true;
+        if (! empty($data['description'])) {
+            $cleanDescription = $this->stripIntro((string) $data['description'], $show['human_date'] ?? null, $show['title'] ?? '');
+            if ($cleanDescription && empty($show['description'])) {
+                $show['description'] = $cleanDescription;
+                $show['_enriched'] = true;
+            }
         }
 
         if (! empty($data['audio_length']) && empty($show['duration_seconds'])) {
@@ -604,6 +613,44 @@ class MixcloudEnricher
         }
 
         return '';
+    }
+
+    private function splitHumanReadableTitle(string $value): array
+    {
+        $pattern = '/^(?P<date>[A-Za-z]+,\s+[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4})\s+-\s+(?P<title>.+)$/';
+        if (! preg_match($pattern, $value, $matches)) {
+            return [null, $this->capitalize($value)];
+        }
+
+        $date = trim((string) ($matches['date'] ?? ''));
+        $title = $this->capitalize(trim((string) ($matches['title'] ?? '')));
+
+        return [$date ?: null, $title ?: $value];
+    }
+
+    private function stripIntro(string $description, ?string $date, string $title): string
+    {
+        $description = trim($description);
+        if (! $date || $date === '' || $title === '') {
+            return $this->capitalize($description);
+        }
+
+        $prefix = $date . ' - ' . $title;
+        if (stripos($description, $prefix) === 0) {
+            $description = substr($description, strlen($prefix));
+            $description = ltrim($description, " \-–—");
+        }
+
+        return $this->capitalize(trim($description));
+    }
+
+    private function capitalize(string $value): string
+    {
+        if ($value === '') {
+            return $value;
+        }
+
+        return mb_strtoupper(mb_substr($value, 0, 1)) . mb_substr($value, 1);
     }
 
     private function extractEmbedSrc(?string $html): ?string
