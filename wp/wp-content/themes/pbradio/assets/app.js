@@ -275,14 +275,19 @@
             if (show.hero_image) {
                 media.style.backgroundImage = `${fallbackBackground}, url(${show.hero_image})`;
                 media.style.backgroundSize = 'cover, cover';
+                media.style.backgroundPosition = 'center, center';
+                media.style.backgroundRepeat = 'no-repeat, no-repeat';
                 media.style.backgroundBlendMode = 'overlay';
             } else {
                 media.style.backgroundImage = fallbackBackground;
+                media.style.backgroundSize = 'cover';
+                media.style.backgroundPosition = 'center';
+                media.style.backgroundRepeat = 'no-repeat';
                 media.classList.add('show-card__media--fallback');
                 if (settings.themeUrl) {
                     const logoImg = document.createElement('img');
                     logoImg.className = 'show-card__mediaLogo';
-                    logoImg.src = `${settings.themeUrl}/assets/logo_hz.svg`;
+                    logoImg.src = `${settings.themeUrl}/assets/logo.svg`;
                     logoImg.alt = '';
                     media.appendChild(logoImg);
                 }
@@ -410,13 +415,18 @@
         if (show.hero_image) {
             hero.style.backgroundImage = `${drawerFallback}, url(${show.hero_image})`;
             hero.style.backgroundSize = 'cover, cover';
+            hero.style.backgroundPosition = 'center, center';
+            hero.style.backgroundRepeat = 'no-repeat, no-repeat';
             hero.style.backgroundBlendMode = 'overlay';
         } else {
             hero.style.backgroundImage = drawerFallback;
+            hero.style.backgroundSize = 'cover';
+            hero.style.backgroundPosition = 'center';
+            hero.style.backgroundRepeat = 'no-repeat';
             if (settings.themeUrl) {
                 const heroLogo = document.createElement('img');
                 heroLogo.className = 'show-drawer__heroLogo';
-                heroLogo.src = `${settings.themeUrl}/assets/logo_hz.svg`;
+                heroLogo.src = `${settings.themeUrl}/assets/logo.svg`;
                 heroLogo.alt = '';
                 hero.appendChild(heroLogo);
             }

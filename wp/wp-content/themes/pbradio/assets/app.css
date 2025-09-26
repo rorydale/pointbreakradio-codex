@@ -272,6 +272,7 @@ a:focus {
     padding-top: 56%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     border-radius: 18px 18px 0 0;
     overflow: hidden;
 }
@@ -293,19 +294,12 @@ a:focus {
     position: absolute;
     inset: 0;
     margin: auto;
-    width: 55%;
+    width: 48%;
     height: auto;
     filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
     opacity: 0.9;
     z-index: 1;
     pointer-events: none;
-}
-
-.show-card__media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 40%, rgba(5, 5, 16, 0.92));
 }
 
 .show-card__body {
@@ -456,7 +450,7 @@ a:focus {
     width: 100%;
     max-width: 420px;
     min-width: 220px;
-    height: 86px;
+    height: 60px;
     justify-self: end;
 }
 
@@ -764,13 +758,6 @@ a:focus {
     opacity: 0.9;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.35));
     pointer-events: none;
-}
-
-.show-drawer__hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(5, 5, 16, 0.4), rgba(5, 5, 16, 0.88));
 }
 
 .show-drawer__title {
