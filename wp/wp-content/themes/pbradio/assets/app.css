@@ -238,6 +238,9 @@ a:focus {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.04);
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .show-card:focus-within {
@@ -265,29 +268,34 @@ a:focus {
     color: inherit;
     padding: 0;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .show-card__media {
     position: relative;
     padding-top: 56%;
+    aspect-ratio: 16 / 9;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 18px 18px 0 0;
     overflow: hidden;
+    margin-bottom: -1px;
 }
 
 .show-card__media::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 40%, rgba(5, 5, 16, 0.92));
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 35%, rgba(5, 5, 16, 0.7) 100%);
     z-index: 0;
     pointer-events: none;
 }
 
 .show-card__media--fallback::after {
-    background: linear-gradient(180deg, rgba(5, 5, 16, 0.25) 0%, rgba(5, 5, 16, 0.92) 80%);
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0.18) 0%, rgba(5, 5, 16, 0.78) 100%);
 }
 
 .show-card__mediaLogo {
@@ -306,7 +314,13 @@ a:focus {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
+    margin-top: -1px;
+    background: linear-gradient(180deg, rgba(12, 12, 22, 0.98), rgba(5, 5, 12, 0.98));
+    border-radius: 0 0 18px 18px;
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
 }
 
 .show-card__title {
@@ -326,7 +340,7 @@ a:focus {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
 }
 
 .show-card__date {
@@ -335,6 +349,7 @@ a:focus {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
+    margin-top: 6px;
 }
 
 .show-card__tags {
@@ -358,16 +373,19 @@ a:focus {
     color: var(--text-muted);
     line-height: 1.6;
     min-height: 72px;
+    flex: 1 1 auto;
 }
 
 .show-card__cta {
-    margin-top: 18px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-family: var(--mono);
     font-size: 0.85rem;
     color: var(--accent-alt);
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: clamp(14px, 2.2vw, 28px);
 }
 
 .show-card__cta::after {
@@ -748,7 +766,7 @@ a:focus {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 40%, rgba(5, 5, 16, 0.92));
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 32%, rgba(5, 5, 16, 0.78) 100%);
     pointer-events: none;
 }
 

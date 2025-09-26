@@ -132,18 +132,23 @@
     }
 
     function generateFallbackBackground(show) {
+        const baseAngle = 0;
+        const brandGradient = 'linear-gradient(0deg, #3b4edd 0%, #d328d3 80%, #f706cd 100%)';
+        if (!show || !show.slug) {
+            return brandGradient;
+        }
         const seed = show.slug || show.mixcloud_url || show.date || Math.random().toString();
         const hash = hashString(seed);
         const palettes = [
-            ['#ff4fd8', '#3b4edd'],
-            ['#45a1ff', '#ff4fd8'],
-            ['#f706cd', '#3ddad7'],
-            ['#4721ff', '#ff8a3d'],
-            ['#11cbd7', '#c6f1e7'],
+            ['#f706cd', '#3b4edd'],
+            ['#d328d3', '#45a1ff'],
+            ['#ff4fd8', '#11cbd7'],
             ['#ff5c8d', '#845ec2'],
+            ['#4721ff', '#ff8a3d'],
+            ['#3ddad7', '#845ec2'],
         ];
         const combo = palettes[hash % palettes.length];
-        const angle = 120 + (hash % 30);
+        const angle = 110 + (hash % 40);
         return `linear-gradient(${angle}deg, ${combo[0]} 0%, ${combo[1]} 100%)`;
     }
 
@@ -273,16 +278,24 @@
             const fallbackBackground = generateFallbackBackground(show);
 
             if (show.hero_image) {
+                const isMixcloudImage = /mixcloud\.com/i.test(show.hero_image);
                 media.style.backgroundImage = `${fallbackBackground}, url(${show.hero_image})`;
-                media.style.backgroundSize = 'cover, cover';
                 media.style.backgroundPosition = 'center, center';
                 media.style.backgroundRepeat = 'no-repeat, no-repeat';
-                media.style.backgroundBlendMode = 'overlay';
+
+                if (isMixcloudImage) {
+                    media.style.backgroundSize = 'cover, 54% auto';
+                    media.style.backgroundBlendMode = 'normal, multiply';
+                } else {
+                    media.style.backgroundSize = 'cover, cover';
+                    media.style.backgroundBlendMode = 'overlay, normal';
+                }
             } else {
                 media.style.backgroundImage = fallbackBackground;
                 media.style.backgroundSize = 'cover';
                 media.style.backgroundPosition = 'center';
                 media.style.backgroundRepeat = 'no-repeat';
+                media.style.removeProperty('background-blend-mode');
                 media.classList.add('show-card__media--fallback');
                 if (settings.themeUrl) {
                     const logoImg = document.createElement('img');
@@ -409,24 +422,17 @@
         const hero = document.createElement('div');
         hero.className = 'show-drawer__hero';
         const drawerFallback = generateFallbackBackground(show);
-        if (show.hero_image) {
-            hero.style.backgroundImage = `${drawerFallback}, url(${show.hero_image})`;
-            hero.style.backgroundSize = 'cover, cover';
-            hero.style.backgroundPosition = 'center, center';
-            hero.style.backgroundRepeat = 'no-repeat, no-repeat';
-            hero.style.backgroundBlendMode = 'overlay';
-        } else {
-            hero.style.backgroundImage = drawerFallback;
-            hero.style.backgroundSize = 'cover';
-            hero.style.backgroundPosition = 'center';
-            hero.style.backgroundRepeat = 'no-repeat';
-            if (settings.themeUrl) {
-                const heroLogo = document.createElement('img');
-                heroLogo.className = 'show-drawer__heroLogo';
-                heroLogo.src = `${settings.themeUrl}/assets/logo.svg`;
-                heroLogo.alt = '';
-                hero.appendChild(heroLogo);
-            }
+        hero.style.backgroundImage = drawerFallback;
+        hero.style.backgroundSize = 'cover';
+        hero.style.backgroundPosition = 'center';
+        hero.style.backgroundRepeat = 'no-repeat';
+
+        if (!show.hero_image && settings.themeUrl) {
+            const heroLogo = document.createElement('img');
+            heroLogo.className = 'show-drawer__heroLogo';
+            heroLogo.src = `${settings.themeUrl}/assets/logo.svg`;
+            heroLogo.alt = '';
+            hero.appendChild(heroLogo);
         }
         drawer.content.appendChild(hero);
 
@@ -444,15 +450,11 @@
             metaPieces.push(formatDuration(show.duration_seconds));
         }
 
-        const { full: drawerFullDate, short: drawerShortDate } = normalizeShowDate(show);
-        if (drawerShortDate) {
-            metaPieces.push(drawerShortDate);
-        }
-
         meta.textContent = metaPieces.join(' • ');
         drawer.content.appendChild(meta);
 
-        if (drawerFullDate && drawerShortDate !== drawerFullDate) {
+        const { full: drawerFullDate } = normalizeShowDate(show);
+        if (drawerFullDate) {
             const drawerDate = document.createElement('p');
             drawerDate.className = 'show-drawer__date';
             drawerDate.textContent = drawerFullDate;

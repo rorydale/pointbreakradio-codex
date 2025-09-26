@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-09-26T18:38:52+00:00",
+    "generated_at": "2025-09-26T22:11:15+00:00",
     "artists": [
         {
             "id": "artist:a-flock-of-seagulls",
@@ -1247,46 +1247,65 @@
             "id": "show:2021-04-17",
             "slug": "2021-04-17",
             "date": "2021-04-17",
-            "title": "Point Break Radio 2021-04-17",
-            "description": "",
+            "title": "The unashamedly 80s show!",
+            "description": "More technical gremlins \u2013 courtesy of MixCloud this time \u2013 delayed today's show until the unusual hour of 3:45PM, so instead of being an early 80s-shake-off-the-cobwebs type of show, it was a bit more of a late afternoon (delight?) type of show. Some singalong epic ballads, some upbeat dancers and some rock as well. Nice!",
             "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-17/",
             "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-17%2F",
             "published_at": "2021-04-17T00:00:00Z",
-            "duration_seconds": null,
-            "hero_image": "",
-            "tags": [],
+            "duration_seconds": 7515,
+            "hero_image": "https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/2/3/2/f/6588-272f-422c-87c6-401dd7b3ae70",
+            "tags": [
+                "rock",
+                "pop",
+                "80s"
+            ],
             "year": 2021,
-            "_enriched": false
+            "_enriched": true,
+            "human_date": "Saturday, April 17th, 2021"
         },
         {
             "id": "show:2021-04-16",
             "slug": "2021-04-16",
             "date": "2021-04-16",
-            "title": "Point Break Radio 2021-04-16",
-            "description": "",
+            "title": "The Prince vibes (and birthday quiz) show!",
+            "description": "Initially planned to be a Prince themed fun funk show with some recognition of Caroline's birthday, this show features an impromptu 3 round 15 question music quiz leading into some requests from across the UK at dual parties! Fun times!! Warning, this show contains the word cunt. Possibly twice.",
             "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-16/",
             "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-16%2F",
             "published_at": "2021-04-16T00:00:00Z",
-            "duration_seconds": null,
-            "hero_image": "",
-            "tags": [],
+            "duration_seconds": 8209,
+            "hero_image": "https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/b/3/c/6/a727-23fb-4205-907b-ccfb4b9a1a57",
+            "tags": [
+                "rock",
+                "pop",
+                "funk",
+                "80s",
+                "birthday"
+            ],
             "year": 2021,
-            "_enriched": false
+            "_enriched": true,
+            "human_date": "Friday, April 16th, 2021"
         },
         {
             "id": "show:2021-04-15",
             "slug": "2021-04-15",
             "date": "2021-04-15",
-            "title": "Point Break Radio 2021-04-15",
-            "description": "",
+            "title": "The new blues show!",
+            "description": "Originally scheduled for Tuesday, today's show is a couple of days late due to some technical problems with the DJ software and Tidal which are thankfully now resolved! All new blues music released in the last year. Double-plays from each artist, from laid back and stripped down field recordings, to upbeat slickly produced tracks to dance to. This show pairs well with Cabernet Sauvignon and/or bourbon.",
             "mixcloud_url": "https://www.mixcloud.com/pointbreakradio/2021-04-15/",
             "mixcloud_embed_url": "https://www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&feed=%2Fpointbreakradio%2F2021-04-15%2F",
             "published_at": "2021-04-15T00:00:00Z",
-            "duration_seconds": null,
-            "hero_image": "",
-            "tags": [],
+            "duration_seconds": 8072,
+            "hero_image": "https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/5/e/f/b/ed19-e755-4602-b55f-09dc9cc69ab0",
+            "tags": [
+                "rock",
+                "blues",
+                "2020",
+                "2021",
+                "new music"
+            ],
             "year": 2021,
-            "_enriched": false
+            "_enriched": true,
+            "human_date": "Thursday, April 15th, 2021"
         }
     ],
     "show_tracks": [

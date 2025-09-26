@@ -35,11 +35,13 @@
 4. [ ] Live toggle & 30s poll indicator.
 5. [ ] Keyboard shortcuts: space (play/pause), n (next), p (prev).
 6. [ ] Drawer polish: tracklist accordion, weather capsule, share sheet.
+7. [ ] Masthead "On Air" indicator powered by Audio Hijack live state.
 
 ### Visual Polish
 1. [ ] Hover micro-glitch interaction on show cards.
 2. [ ] VU animation timing tuned for subtle movement.
 3. [ ] Typography pairing finalized for masthead vs content vs monospace metadata.
+4. [ ] Investigate Safari gradient rendering on show cards and align with Chrome.
 
 ### Data Migration
 - [x] Document identical endpoint response shapes to ease JSON → MySQL migration later (see `tools/import-shows.php` and generated `data/library.json`).
@@ -50,6 +52,7 @@
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
 4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
 5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
+6. [ ] Store Mixcloud API credentials outside repo (env/secrets) and load via config constants.
 
 ### Mixcloud Automation
 - [ ] Sync track metadata back to Mixcloud via API once timing data available.

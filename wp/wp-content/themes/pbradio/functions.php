@@ -20,16 +20,20 @@ add_action('after_setup_theme', function (): void {
 
 add_action('wp_enqueue_scripts', function (): void {
     $theme = wp_get_theme();
-    $version = $theme->get('Version') ?: PBRADIO_VERSION;
-    $dir = get_template_directory_uri();
+    $dir   = get_template_directory_uri();
+    $path  = get_template_directory();
 
-    wp_enqueue_style('pbradio-app', $dir . '/assets/app.css', [], $version);
-    wp_enqueue_script('pbradio-app', $dir . '/assets/app.js', [], $version, true);
+    $css_version = (string) filemtime($path . '/assets/app.css');
+    $js_version  = (string) filemtime($path . '/assets/app.js');
+
+    wp_enqueue_style('pbradio-app', $dir . '/assets/app.css', [], $css_version ?: $theme->get('Version'));
+    wp_enqueue_script('pbradio-app', $dir . '/assets/app.js', [], $js_version ?: $theme->get('Version'), true);
 
     wp_localize_script('pbradio-app', 'PBRadioSettings', [
         'restBase' => esc_url_raw(rest_url('pbr/v1')),
         'siteTitle' => get_bloginfo('name'),
         'themeUrl' => esc_url_raw(get_template_directory_uri()),
         'nonce' => wp_create_nonce('wp_rest'),
+        'debug' => defined('WP_DEBUG') && WP_DEBUG,
     ]);
 });
