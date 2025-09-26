@@ -34,6 +34,7 @@
 3. [ ] "Pool Day" queue bundle integration.
 4. [ ] Live toggle & 30s poll indicator.
 5. [ ] Keyboard shortcuts: space (play/pause), n (next), p (prev).
+6. [ ] Drawer polish: tracklist accordion, weather capsule, share sheet.
 
 ### Visual Polish
 1. [ ] Hover micro-glitch interaction on show cards.
@@ -48,3 +49,6 @@
 2. [x] Theme and plugin autoload bootstrap verified.
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
 4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
+
+### Mixcloud Automation
+- [ ] Sync track metadata back to Mixcloud via API once timing data available.

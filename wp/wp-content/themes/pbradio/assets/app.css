@@ -269,9 +269,36 @@ a:focus {
 
 .show-card__media {
     position: relative;
-    padding-top: 60%;
+    padding-top: 56%;
     background-size: cover;
     background-position: center;
+    border-radius: 18px 18px 0 0;
+    overflow: hidden;
+}
+
+.show-card__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 40%, rgba(5, 5, 16, 0.92));
+    z-index: 0;
+    pointer-events: none;
+}
+
+.show-card__media--fallback::after {
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0.25) 0%, rgba(5, 5, 16, 0.92) 80%);
+}
+
+.show-card__mediaLogo {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 55%;
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+    opacity: 0.9;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .show-card__media::after {
@@ -317,6 +344,7 @@ a:focus {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+    margin-top: 4px;
 }
 
 .show-card__tag {
@@ -716,6 +744,26 @@ a:focus {
     background-size: cover;
     background-position: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.show-drawer__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 40%, rgba(5, 5, 16, 0.92));
+    pointer-events: none;
+}
+
+.show-drawer__heroLogo {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50%;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.35));
+    pointer-events: none;
 }
 
 .show-drawer__hero::after {

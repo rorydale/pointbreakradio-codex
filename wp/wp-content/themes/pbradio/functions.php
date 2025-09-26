@@ -29,6 +29,7 @@ add_action('wp_enqueue_scripts', function (): void {
     wp_localize_script('pbradio-app', 'PBRadioSettings', [
         'restBase' => esc_url_raw(rest_url('pbr/v1')),
         'siteTitle' => get_bloginfo('name'),
+        'themeUrl' => esc_url_raw(get_template_directory_uri()),
         'nonce' => wp_create_nonce('wp_rest'),
     ]);
 });

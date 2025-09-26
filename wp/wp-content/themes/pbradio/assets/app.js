@@ -56,11 +56,12 @@
 
 
     function normalizeShowDate(show) {
+        const slugDate = parseSlugDate(show.slug);
         const human = show.human_date ? String(show.human_date).trim() : null;
         const isoSource = show.date || show.published_at || null;
-        const dateObj = isoSource ? parseIsoDate(isoSource) : null;
+        const dateObj = slugDate || parseIsoDate(isoSource);
 
-        let full = human && human !== '' ? human : null;
+        let full = human && human !== '' ? normalizeHumanReadableDate(human) : null;
         let short = null;
 
         if (dateObj && !Number.isNaN(dateObj.valueOf())) {
@@ -71,6 +72,13 @@
         }
 
         return { full, short };
+    }
+
+    function parseSlugDate(slug) {
+        if (!slug || typeof slug !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(slug)) {
+            return null;
+        }
+        return new Date(`${slug}T12:00:00Z`);
     }
 
     function parseIsoDate(value) {
@@ -85,12 +93,42 @@
         return new Date(value);
     }
 
+    function parseHumanReadableDate(value) {
+        if (!value) {
+            return null;
+        }
+        const match = value.match(/^[^,]+,\s+([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,\s*(\d{4})$/);
+        if (!match) {
+            return null;
+        }
+        const [, month, day, year] = match;
+        return new Date(`${month} ${day} ${year} 12:00:00`);
+    }
+
+    function normalizeHumanReadableDate(value) {
+        const parsed = parseHumanReadableDate(value);
+        return parsed ? formatFullDate(parsed) : value;
+    }
+
     function formatFullDate(date) {
-        return date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        const weekday = date.toLocaleDateString(undefined, { weekday: 'long' });
+        const month = date.toLocaleDateString(undefined, { month: 'long' });
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${weekday}, ${month} ${day}${getOrdinalSuffix(day)}, ${year}`;
     }
 
     function formatShortDate(date) {
         return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }).toUpperCase();
+    }
+
+    function getOrdinalSuffix(day) {
+        const mod10 = day % 10;
+        const mod100 = day % 100;
+        if (mod10 === 1 && mod100 !== 11) return 'st';
+        if (mod10 === 2 && mod100 !== 12) return 'nd';
+        if (mod10 === 3 && mod100 !== 13) return 'rd';
+        return 'th';
     }
 
     function generateFallbackBackground(show) {
@@ -232,7 +270,23 @@
 
             const media = document.createElement('div');
             media.className = 'show-card__media';
-            media.style.backgroundImage = show.hero_image ? `url(${show.hero_image})` : generateFallbackBackground(show);
+            const fallbackBackground = generateFallbackBackground(show);
+
+            if (show.hero_image) {
+                media.style.backgroundImage = `${fallbackBackground}, url(${show.hero_image})`;
+                media.style.backgroundSize = 'cover, cover';
+                media.style.backgroundBlendMode = 'overlay';
+            } else {
+                media.style.backgroundImage = fallbackBackground;
+                media.classList.add('show-card__media--fallback');
+                if (settings.themeUrl) {
+                    const logoImg = document.createElement('img');
+                    logoImg.className = 'show-card__mediaLogo';
+                    logoImg.src = `${settings.themeUrl}/assets/logo_hz.svg`;
+                    logoImg.alt = '';
+                    media.appendChild(logoImg);
+                }
+            }
 
             const body = document.createElement('div');
             body.className = 'show-card__body';
@@ -352,7 +406,21 @@
 
         const hero = document.createElement('div');
         hero.className = 'show-drawer__hero';
-        hero.style.backgroundImage = show.hero_image ? `url(${show.hero_image})` : generateFallbackBackground(show);
+        const drawerFallback = generateFallbackBackground(show);
+        if (show.hero_image) {
+            hero.style.backgroundImage = `${drawerFallback}, url(${show.hero_image})`;
+            hero.style.backgroundSize = 'cover, cover';
+            hero.style.backgroundBlendMode = 'overlay';
+        } else {
+            hero.style.backgroundImage = drawerFallback;
+            if (settings.themeUrl) {
+                const heroLogo = document.createElement('img');
+                heroLogo.className = 'show-drawer__heroLogo';
+                heroLogo.src = `${settings.themeUrl}/assets/logo_hz.svg`;
+                heroLogo.alt = '';
+                hero.appendChild(heroLogo);
+            }
+        }
         drawer.content.appendChild(hero);
 
         const title = document.createElement('h2');
