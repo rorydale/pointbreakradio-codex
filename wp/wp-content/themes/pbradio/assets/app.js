@@ -54,6 +54,70 @@
         return `${mins} min${mins === 1 ? '' : 's'}`;
     }
 
+
+    function normalizeShowDate(show) {
+        const human = show.human_date ? String(show.human_date).trim() : null;
+        const isoSource = show.date || show.published_at || null;
+        const dateObj = isoSource ? parseIsoDate(isoSource) : null;
+
+        let full = human && human !== '' ? human : null;
+        let short = null;
+
+        if (dateObj && !Number.isNaN(dateObj.valueOf())) {
+            short = formatShortDate(dateObj);
+            if (!full) {
+                full = formatFullDate(dateObj);
+            }
+        }
+
+        return { full, short };
+    }
+
+    function parseIsoDate(value) {
+        if (!value) {
+            return null;
+        }
+
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            return new Date(`${value}T12:00:00Z`);
+        }
+
+        return new Date(value);
+    }
+
+    function formatFullDate(date) {
+        return date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    function formatShortDate(date) {
+        return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }).toUpperCase();
+    }
+
+    function generateFallbackBackground(show) {
+        const seed = show.slug || show.mixcloud_url || show.date || Math.random().toString();
+        const hash = hashString(seed);
+        const palettes = [
+            ['#ff4fd8', '#3b4edd'],
+            ['#45a1ff', '#ff4fd8'],
+            ['#f706cd', '#3ddad7'],
+            ['#4721ff', '#ff8a3d'],
+            ['#11cbd7', '#c6f1e7'],
+            ['#ff5c8d', '#845ec2'],
+        ];
+        const combo = palettes[hash % palettes.length];
+        const angle = 120 + (hash % 30);
+        return `linear-gradient(${angle}deg, ${combo[0]} 0%, ${combo[1]} 100%)`;
+    }
+
+    function hashString(value) {
+        let hash = 0;
+        for (let i = 0; i < value.length; i += 1) {
+            hash = (hash << 5) - hash + value.charCodeAt(i);
+            hash |= 0;
+        }
+        return Math.abs(hash);
+    }
+
     async function fetchJson(path, options = {}) {
         const isAbsolute = /^https?:/i.test(path);
         const url = isAbsolute ? path : `${restBase}${path}`;
@@ -168,7 +232,7 @@
 
             const media = document.createElement('div');
             media.className = 'show-card__media';
-            media.style.backgroundImage = show.hero_image ? `url(${show.hero_image})` : 'radial-gradient(circle, rgba(255,79,216,0.32), rgba(5,5,16,0.9))';
+            media.style.backgroundImage = show.hero_image ? `url(${show.hero_image})` : generateFallbackBackground(show);
 
             const body = document.createElement('div');
             body.className = 'show-card__body';
@@ -179,24 +243,27 @@
 
             const meta = document.createElement('div');
             meta.className = 'show-card__meta';
-            const parts = [];
+            const metaParts = [];
             if (show.year) {
-                parts.push(show.year);
+                metaParts.push(show.year);
             }
             if (show.duration_seconds) {
-                parts.push(formatDuration(show.duration_seconds));
+                metaParts.push(formatDuration(show.duration_seconds));
             }
-            if (show.published_at) {
-                const date = new Date(show.published_at);
-                if (!Number.isNaN(date.valueOf())) {
-                    parts.push(date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
-                }
+            meta.textContent = metaParts.join(' • ');
+
+            const { full: fullDate, short: shortDate } = normalizeShowDate(show);
+            if (shortDate) {
+                meta.dataset.shortDate = shortDate;
             }
-            meta.textContent = parts.join(' • ');
+
+            const dateLine = document.createElement('div');
+            dateLine.className = 'show-card__date';
+            dateLine.textContent = fullDate || shortDate || '';
 
             const tags = document.createElement('div');
             tags.className = 'show-card__tags';
-            (show.tags || []).slice(0, 4).forEach((tag) => {
+            (show.tags || []).slice(0, 6).forEach((tag) => {
                 const chip = document.createElement('span');
                 chip.className = 'show-card__tag';
                 chip.textContent = tag;
@@ -212,6 +279,9 @@
             cta.textContent = index === 0 ? 'Dial in' : 'Play show';
 
             body.append(title, meta);
+            if (fullDate || shortDate) {
+                body.appendChild(dateLine);
+            }
             if (tags.childNodes.length) {
                 body.appendChild(tags);
             }
@@ -282,11 +352,7 @@
 
         const hero = document.createElement('div');
         hero.className = 'show-drawer__hero';
-        if (show.hero_image) {
-            hero.style.backgroundImage = `url(${show.hero_image})`;
-        } else {
-            hero.style.backgroundImage = 'linear-gradient(135deg, rgba(255,79,216,0.4), rgba(69,161,255,0.25))';
-        }
+        hero.style.backgroundImage = show.hero_image ? `url(${show.hero_image})` : generateFallbackBackground(show);
         drawer.content.appendChild(hero);
 
         const title = document.createElement('h2');
@@ -298,21 +364,28 @@
 
         const meta = document.createElement('p');
         meta.className = 'show-drawer__meta';
-        const pieces = [];
+        const metaPieces = [];
         if (show.year) {
-            pieces.push(show.year);
+            metaPieces.push(show.year);
         }
         if (show.duration_seconds) {
-            pieces.push(formatDuration(show.duration_seconds));
+            metaPieces.push(formatDuration(show.duration_seconds));
         }
-        if (show.published_at) {
-            const date = new Date(show.published_at);
-            if (!Number.isNaN(date.valueOf())) {
-                pieces.push(date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }));
-            }
+
+        const { full: drawerFullDate, short: drawerShortDate } = normalizeShowDate(show);
+        if (drawerShortDate) {
+            metaPieces.push(drawerShortDate);
         }
-        meta.textContent = pieces.join(' • ');
+
+        meta.textContent = metaPieces.join(' • ');
         drawer.content.appendChild(meta);
+
+        if (drawerFullDate && drawerShortDate !== drawerFullDate) {
+            const drawerDate = document.createElement('p');
+            drawerDate.className = 'show-drawer__date';
+            drawerDate.textContent = drawerFullDate;
+            drawer.content.appendChild(drawerDate);
+        }
 
         if (Array.isArray(show.tags) && show.tags.length) {
             const tagWrap = document.createElement('div');
