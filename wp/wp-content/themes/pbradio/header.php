@@ -12,8 +12,7 @@
 <header class="site-header" role="banner">
     <div class="masthead">
         <div class="masthead__logo" role="img" aria-label="Point Break Radio">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo.svg'); ?>" alt="" />
-            <span class="masthead__wordmark">Point Break Radio</span>
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/logo_hz.svg'); ?>" alt="Point Break Radio" />
         </div>
         <nav class="masthead__nav" aria-label="Main navigation">
             <?php

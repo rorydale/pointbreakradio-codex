@@ -97,21 +97,12 @@ a:focus {
 .masthead__logo {
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
 }
 
 .masthead__logo img {
-    width: 56px;
-    height: 56px;
-    filter: drop-shadow(0 0 12px rgba(2, 2, 2, 0.35));
-}
-
-.masthead__wordmark {
-    font-family: var(--mono);
-    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    display: block;
+    width: clamp(200px, 18vw, 316px);
+    height: auto;
 }
 
 .masthead__menu,
