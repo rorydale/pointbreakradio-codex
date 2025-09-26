@@ -1,0 +1,30 @@
+# DDEV
+.ddev/.global_commands
+.ddev/db_snapshots/
+.ddev/mysql/
+.ddev/Mutagen/
+.ddev/nginx_full/
+.ddev/php/
+.ddev/traefik/
+.ddev/web-build/
+.ddev/web-entrypoint.d/
+
+# WordPress core downloads and uploads
+wp/
+!wp/wp-content/
+!wp/wp-config.php
+
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Composer / vendor (not used yet, but future proof)
+/vendor/
+
+# Logs and temp files
+*.log
+*.tmp
