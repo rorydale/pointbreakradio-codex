@@ -84,7 +84,7 @@ a:focus {
 }
 
 .masthead {
-    background: linear-gradient(120deg, rgba(255, 79, 216, 0.9), rgba(123, 93, 255, 0.9), rgba(69, 161, 255, 0.9));
+    background: linear-gradient(120deg, rgba(247, 6, 205, 0.9) 0%, rgba(211, 40, 211, 0.9) 50%, rgba(59, 78, 221, 0.9) 100%);
     padding: 28px clamp(24px, 5vw, 64px) 40px;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
