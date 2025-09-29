@@ -53,6 +53,7 @@
 4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
 5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
 6. [ ] Store Mixcloud API credentials outside repo (env/secrets) and load via config constants.
+7. [ ] Document importer flags (`--only`, `--delete`, `--mixcloud`) in README/docs.
 
 ### Mixcloud Automation
 - [ ] Sync track metadata back to Mixcloud via API once timing data available.

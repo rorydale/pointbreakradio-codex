@@ -5,6 +5,49 @@ declare(strict_types=1);
 
 $options = $argv;
 $useMixcloud = in_array('--mixcloud', $options, true);
+$deleteMode = in_array('--delete', $options, true);
+
+if ($deleteMode && ! in_array('--only=', $options, true)) {
+    $hasOnly = false;
+    foreach ($options as $arg) {
+        if (str_starts_with($arg, '--only=')) {
+            $hasOnly = true;
+            break;
+        }
+    }
+    if (! $hasOnly) {
+        fwrite(STDERR, "--delete requires --only to specify which show(s) to remove.\n");
+        exit(1);
+    }
+}
+
+$onlyOption = null;
+foreach ($options as $arg) {
+    if (str_starts_with($arg, '--only=')) {
+        $onlyOption = substr($arg, 7);
+        break;
+    }
+}
+
+$onlySlugs = [];
+if ($onlyOption) {
+    $onlySlugs = array_values(array_filter(array_map(static function (string $value): string {
+        $value = trim($value);
+        if ($value === '') {
+            return '';
+        }
+
+        $value = preg_replace('/\.csv$/i', '', $value) ?? $value;
+        return strtolower($value);
+    }, explode(',', $onlyOption))));
+
+    if (! $onlySlugs) {
+        fwrite(STDERR, "No valid values provided for --only option.\n");
+        exit(1);
+    }
+}
+
+$onlySlugs = array_unique($onlySlugs);
 
 $projectRoot = dirname(__DIR__);
 $importDir   = $projectRoot . '/data/import';
@@ -12,6 +55,21 @@ $metaDir     = $importDir . '/meta';
 $outputShows = $projectRoot . '/data/shows.json';
 $outputLibrary = $projectRoot . '/data/library.json';
 $cacheDir    = $projectRoot . '/data/cache/mixcloud';
+
+$existingLibrary = file_exists($outputLibrary) ? json_decode((string) file_get_contents($outputLibrary), true) : null;
+$existingLibraryShows = [];
+if (is_array($existingLibrary['shows'] ?? null)) {
+    foreach ($existingLibrary['shows'] as $existingShow) {
+        if (! is_array($existingShow)) {
+            continue;
+        }
+        $slug = strtolower((string) ($existingShow['slug'] ?? ''));
+        if ($slug === '') {
+            continue;
+        }
+        $existingLibraryShows[$slug] = $existingShow;
+    }
+}
 
 if (! is_dir($importDir)) {
     fwrite(STDERR, "Import directory not found: {$importDir}\n");
@@ -46,6 +104,15 @@ $showTracks = [];
 foreach ($csvFiles as $csvPath) {
     $baseName = basename($csvPath, '.csv');
     $slugDate = extractDateSlug($baseName);
+    $normalizedSlugDate = strtolower($slugDate ?? '');
+
+    if ($deleteMode && $onlySlugs) {
+        $normalizedName = strtolower($baseName);
+        if (in_array($normalizedSlugDate, $onlySlugs, true) || in_array($normalizedName, $onlySlugs, true)) {
+            unset($existingLibraryShows[$normalizedSlugDate], $existingLibraryShows[$normalizedName]);
+            continue;
+        }
+    }
 
     if (! $slugDate) {
         fwrite(STDERR, "Skipping {$csvPath}: unable to determine date slug.\n");
@@ -114,9 +181,18 @@ foreach ($csvFiles as $csvPath) {
     $publishedAt = $meta['published_at'] ?? ($slugDate ? $slugDate . 'T00:00:00Z' : null);
     $year = $meta['year'] ?? ($slugDate ? (int) substr($slugDate, 0, 4) : null);
 
+    $normalizedShowSlug = strtolower($showSlug);
+    if ($deleteMode && $onlySlugs && (in_array($normalizedShowSlug, $onlySlugs, true) || in_array($normalizedSlugDate, $onlySlugs, true))) {
+        continue;
+    }
+
     $mixcloudPath = $meta['mixcloud_path'] ?? $showSlug;
     $mixcloudUrl = $meta['mixcloud_url'] ?? buildMixcloudUrl($mixcloudPath);
     $mixcloudEmbedUrl = $meta['mixcloud_embed_url'] ?? buildMixcloudEmbedUrl($mixcloudPath);
+
+    $normalizedSlugDate = strtolower($slugDate);
+    $normalizedShowSlug = strtolower($showSlug);
+    $shouldMixcloud = $mixcloudEnricher && (! $onlySlugs || in_array($normalizedSlugDate, $onlySlugs, true) || in_array($normalizedShowSlug, $onlySlugs, true));
 
     $showRecord = [
         'id' => $showId,
@@ -134,8 +210,18 @@ foreach ($csvFiles as $csvPath) {
         '_enriched' => false,
     ];
 
-    if ($mixcloudEnricher) {
-        $showRecord = $mixcloudEnricher->enrich($showRecord, $slugDate);
+    if ($shouldMixcloud) {
+        $showRecord = $mixcloudEnricher->enrich($showRecord, $mixcloudPath);
+    }
+
+    $normalizedKey = strtolower($showSlug);
+    if (isset($existingLibraryShows[$normalizedKey])) {
+        $showRecord = mergeExistingShow($showRecord, $existingLibraryShows[$normalizedKey]);
+    } elseif (! empty($show['slug'])) {
+        $fallbackKey = strtolower((string) $show['slug']);
+        if (isset($existingLibraryShows[$fallbackKey])) {
+            $showRecord = mergeExistingShow($showRecord, $existingLibraryShows[$fallbackKey]);
+        }
     }
 
     $shows[$showId] = $showRecord;
@@ -239,8 +325,10 @@ $mixcloudNotice = $useMixcloud
     ? 'Mixcloud enrichment enabled (cached responses stored in data/cache/mixcloud).'
     : 'Mixcloud enrichment skipped. Pass --mixcloud to enable remote lookups.';
 
+$actionVerb = $deleteMode ? 'Processed' : 'Imported';
 fwrite(STDOUT, sprintf(
-    "Imported %d shows → %s\n%s\n",
+    "%s %d shows → %s\n%s\n",
+    $actionVerb,
     count($denormalised),
     $outputShows,
     $mixcloudNotice
@@ -390,6 +478,22 @@ function buildFullText(array $show, array $tracks): string
     return trim(preg_replace('/\s+/', ' ', implode(' ', $parts)));
 }
 
+function mergeExistingShow(array $show, array $existing): array
+{
+    $fields = ['description', 'mixcloud_url', 'mixcloud_embed_url', 'published_at', 'hero_image', 'duration_seconds', 'human_date'];
+    foreach ($fields as $field) {
+        if ((empty($show[$field]) || $show[$field] === '') && ! empty($existing[$field])) {
+            $show[$field] = $existing[$field];
+        }
+    }
+
+    if (empty($show['tags']) && ! empty($existing['tags']) && is_array($existing['tags'])) {
+        $show['tags'] = $existing['tags'];
+    }
+
+    return $show;
+}
+
 function mapById(array $items): array
 {
     $map = [];
@@ -498,20 +602,20 @@ class MixcloudEnricher
     {
     }
 
-    public function enrich(array $show, string $slug): array
+    public function enrich(array $show, string $mixcloudPath): array
     {
         $needs = $this->needsEnrichment($show);
         if (! $needs) {
             return $show;
         }
 
-        $data = $this->client->fetchShow($slug);
+        $data = $this->client->fetchShow($mixcloudPath);
         if ($data) {
             $show = $this->mergeShowData($show, $data);
         }
 
         if (empty($show['mixcloud_embed_url'])) {
-            $embedHtml = $this->client->fetchEmbedHtml($slug);
+            $embedHtml = $this->client->fetchEmbedHtml($mixcloudPath);
             $embedSrc = $this->extractEmbedSrc($embedHtml);
             if ($embedSrc) {
                 $show['mixcloud_embed_url'] = $embedSrc;
@@ -617,7 +721,7 @@ class MixcloudEnricher
 
     private function splitHumanReadableTitle(string $value): array
     {
-        $pattern = '/^(?P<date>[A-Za-z]+,\s+[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4})\s+-\s+(?P<title>.+)$/';
+        $pattern = '/^(?P<date>[A-Za-z]+,?\s+[A-Za-z]+\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})\s+-\s+(?P<title>.+)$/';
         if (! preg_match($pattern, $value, $matches)) {
             return [null, $this->capitalize($value)];
         }

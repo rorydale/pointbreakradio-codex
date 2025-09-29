@@ -277,33 +277,45 @@
             media.className = 'show-card__media';
             const fallbackBackground = generateFallbackBackground(show);
 
-            if (show.hero_image) {
-                const isMixcloudImage = /mixcloud\.com/i.test(show.hero_image);
-                media.style.backgroundImage = `${fallbackBackground}, url(${show.hero_image})`;
-                media.style.backgroundPosition = 'center, center';
-                media.style.backgroundRepeat = 'no-repeat, no-repeat';
+            media.style.backgroundImage = fallbackBackground;
+            media.style.backgroundSize = 'cover';
+            media.style.backgroundPosition = 'center';
+            media.style.backgroundRepeat = 'no-repeat';
+            media.style.removeProperty('background-blend-mode');
 
-                if (isMixcloudImage) {
-                    media.style.backgroundSize = 'cover, 54% auto';
-                    media.style.backgroundBlendMode = 'normal, multiply';
-                } else {
-                    media.style.backgroundSize = 'cover, cover';
-                    media.style.backgroundBlendMode = 'overlay, normal';
-                }
-            } else {
-                media.style.backgroundImage = fallbackBackground;
-                media.style.backgroundSize = 'cover';
-                media.style.backgroundPosition = 'center';
-                media.style.backgroundRepeat = 'no-repeat';
-                media.style.removeProperty('background-blend-mode');
+            if (show.hero_image) {
+                const art = document.createElement('img');
+                art.className = 'show-card__mediaArt';
+                art.src = show.hero_image;
+                art.alt = '';
+                art.loading = 'lazy';
+                art.decoding = 'async';
+
+                const attachFallback = () => {
+                    art.remove();
+                    if (!media.querySelector('.show-card__mediaLogo') && settings.themeUrl) {
+                        media.classList.add('show-card__media--fallback');
+                        const fallbackLogo = document.createElement('img');
+                        fallbackLogo.className = 'show-card__mediaLogo';
+                        fallbackLogo.src = `${settings.themeUrl}/assets/logo.svg`;
+                        fallbackLogo.alt = '';
+                        media.appendChild(fallbackLogo);
+                    }
+                };
+
+                art.addEventListener('error', attachFallback, { once: true });
+                art.addEventListener('load', () => {
+                    media.classList.add('show-card__media--hasArt');
+                }, { once: true });
+
+                media.appendChild(art);
+            } else if (settings.themeUrl) {
                 media.classList.add('show-card__media--fallback');
-                if (settings.themeUrl) {
-                    const logoImg = document.createElement('img');
-                    logoImg.className = 'show-card__mediaLogo';
-                    logoImg.src = `${settings.themeUrl}/assets/logo.svg`;
-                    logoImg.alt = '';
-                    media.appendChild(logoImg);
-                }
+                const logoImg = document.createElement('img');
+                logoImg.className = 'show-card__mediaLogo';
+                logoImg.src = `${settings.themeUrl}/assets/logo.svg`;
+                logoImg.alt = '';
+                media.appendChild(logoImg);
             }
 
             const body = document.createElement('div');
@@ -944,10 +956,35 @@
         }
     }
 
+    async function fetchAllShows(limit = 50) {
+        const shows = [];
+        let offset = 0;
+        let total = Number.POSITIVE_INFINITY;
+
+        while (offset < total) {
+            const data = await fetchJson(`/shows?limit=${limit}&offset=${offset}`);
+            const items = Array.isArray(data?.items) ? data.items : [];
+
+            if (!items.length) {
+                break;
+            }
+
+            shows.push(...items);
+
+            total = typeof data?.total === 'number' ? data.total : shows.length;
+            offset += items.length;
+
+            if (items.length < limit) {
+                break;
+            }
+        }
+
+        return shows;
+    }
+
     async function loadShows() {
         try {
-            const data = await fetchJson('/shows');
-            const items = Array.isArray(data?.items) ? data.items : [];
+            const items = await fetchAllShows();
             state.shows = items;
             state.showLookup = Object.create(null);
             state.shows.forEach((show) => cacheShow(show));

@@ -217,7 +217,7 @@ a:focus {
 
 .shows-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 28px;
 }
 
@@ -241,6 +241,9 @@ a:focus {
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-width: 360px;
+    width: 100%;
+    justify-self: center;
 }
 
 .show-card:focus-within {
@@ -298,6 +301,10 @@ a:focus {
     background: linear-gradient(180deg, rgba(5, 5, 16, 0.18) 0%, rgba(5, 5, 16, 0.78) 100%);
 }
 
+.show-card__media--hasArt::after {
+    background: linear-gradient(180deg, rgba(5, 5, 16, 0) 55%, rgba(5, 5, 16, 0.65) 100%);
+}
+
 .show-card__mediaLogo {
     position: absolute;
     inset: 0;
@@ -308,6 +315,20 @@ a:focus {
     opacity: 0.9;
     z-index: 1;
     pointer-events: none;
+}
+
+.show-card__mediaArt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(120px, 40%, 240px);
+    max-height: 70%;
+    border-radius: 18px;
+    box-shadow: 0 22px 48px rgba(5, 5, 16, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    z-index: 1;
+    pointer-events: none;
+    object-fit: cover;
 }
 
 .show-card__body {
@@ -356,7 +377,8 @@ a:focus {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
-    margin-top: 4px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .show-card__tag {
@@ -731,6 +753,13 @@ a:focus {
     cursor: pointer;
     display: grid;
     place-items: center;
+}
+
+.show-drawer__close span {
+    font-size: 1.35rem;
+    line-height: 1;
+    display: block;
+    transform: translateY(-1px);
 }
 
 .show-drawer__close:hover,
