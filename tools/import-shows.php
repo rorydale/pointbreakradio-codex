@@ -283,8 +283,7 @@ foreach ($library['shows'] as $show) {
     });
 
     $trackPayload = [];
-    $totalRecords = count($showTracksRecords);
-    foreach ($showTracksRecords as $index => $record) {
+    foreach ($showTracksRecords as $record) {
         $track = $trackLookup[$record['track_id']] ?? null;
         if (! $track) {
             continue;
@@ -292,13 +291,6 @@ foreach ($library['shows'] as $show) {
 
         $artist = $artistLookup[$track['artist_id']] ?? null;
         $album = $track['album_id'] ? ($albumLookup[$track['album_id']] ?? null) : null;
-
-        $isFirst = $index === 0;
-        $isLast = $index === ($totalRecords - 1);
-
-        if (($isFirst && isIntroUnderscore($track, $artist)) || ($isLast && isOutroUnderscore($track, $artist))) {
-            continue;
-        }
 
         $trackPayload[] = [
             'title' => $track['title'],
@@ -780,19 +772,4 @@ class MixcloudEnricher
 
         return null;
     }
-}
-
-
-function isIntroUnderscore(array $track, ?array $artist): bool
-{
-    $title = strtolower(trim((string) ($track['title'] ?? '')));
-    $artistName = strtolower(trim((string) ($artist['name'] ?? '')));
-    return $title === 'bnd' && $artistName === 'no doubt';
-}
-
-function isOutroUnderscore(array $track, ?array $artist): bool
-{
-    $title = strtolower(trim((string) ($track['title'] ?? '')));
-    $artistName = strtolower(trim((string) ($artist['name'] ?? '')));
-    return $title === 'the blue wrath' && $artistName === 'i monster';
 }
