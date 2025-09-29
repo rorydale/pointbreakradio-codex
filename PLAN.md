@@ -36,15 +36,18 @@
 5. [ ] Keyboard shortcuts: space (play/pause), n (next), p (prev).
 6. [ ] Drawer polish: tracklist accordion, weather capsule, share sheet.
 7. [ ] Masthead "On Air" indicator powered by Audio Hijack live state.
+8. [x] Persistent floating search pill tuning (mobile + overlay interplay).
 
 ### Visual Polish
 1. [ ] Hover micro-glitch interaction on show cards.
 2. [ ] VU animation timing tuned for subtle movement.
 3. [ ] Typography pairing finalized for masthead vs content vs monospace metadata.
 4. [ ] Investigate Safari gradient rendering on show cards and align with Chrome.
+5. [ ] Footer alignment & responsive spacing refresh.
 
 ### Data Migration
 - [x] Document identical endpoint response shapes to ease JSON → MySQL migration later (see `tools/import-shows.php` and generated `data/library.json`).
+- [ ] Define archive/front-page content strategy as dataset grows (curation vs. full listing).
 
 ### Operational
 1. [x] DDEV configuration commands documented.
@@ -53,7 +56,12 @@
 4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
 5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
 6. [ ] Store Mixcloud API credentials outside repo (env/secrets) and load via config constants.
-7. [ ] Document importer flags (`--only`, `--delete`, `--mixcloud`) in README/docs.
+7. [ ] Draft migration plan for moving shows/tracks into MySQL once CSV validation is complete.
+8. [x] Document importer flags (`--only`, `--delete`, `--mixcloud`) in README/docs.
 
 ### Mixcloud Automation
 - [ ] Sync track metadata back to Mixcloud via API once timing data available.
+- [ ] Add per-show notes/links section in drawer (accordion with comments/corrections).
+
+### Analytics Ideas
+- [ ] Explore track/artist/genre stats for a "trending" dashboard.
