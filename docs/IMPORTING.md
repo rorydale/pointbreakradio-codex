@@ -25,8 +25,6 @@ php tools/import-shows.php --only=2023-06-23,2023-06-30 --mixcloud
 ```
 
 When `--mixcloud` is provided alongside `--only`, the script calls Mixcloud **only** for the requested shows (responses are cached in `data/cache/mixcloud`).
-The importer automatically filters the intro/outro underscore tracks ("BND" by No Doubt and "The Blue Wrath" by I Monster) so they do not appear in tracklist output or search results.
-
 
 ## Deleting Shows
 
