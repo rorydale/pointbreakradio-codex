@@ -42,7 +42,7 @@
 1. [ ] Hover micro-glitch interaction on show cards.
 2. [ ] VU animation timing tuned for subtle movement.
 3. [ ] Typography pairing finalized for masthead vs content vs monospace metadata.
-4. [ ] Investigate Safari gradient rendering on show cards and align with Chrome.
+4. [x] Investigate Safari gradient rendering on show cards and align with Chrome.
 5. [ ] Footer alignment & responsive spacing refresh.
 
 ### Data Migration
@@ -53,7 +53,7 @@
 1. [x] DDEV configuration commands documented.
 2. [x] Theme and plugin autoload bootstrap verified.
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
-4. [ ] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
+4. [x] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
 5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
 6. [ ] Store Mixcloud API credentials outside repo (env/secrets) and load via config constants.
 7. [ ] Draft migration plan for moving shows/tracks into MySQL once CSV validation is complete.
