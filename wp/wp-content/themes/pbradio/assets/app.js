@@ -39,6 +39,38 @@
 
     const MAX_MATCH_PREVIEW = 4;
 
+    const INTRO_UNDERSCORE = { title: "bnd", artist: "no doubt" };
+    const OUTRO_UNDERSCORE = { title: "the blue wrath", artist: "i monster" };
+
+    function toKey(value) {
+        return (value || "").toString().trim().toLowerCase();
+    }
+
+    function isIntroUnderscoreTrack(track) {
+        return toKey(track?.title) === INTRO_UNDERSCORE.title && toKey(track?.artist) === INTRO_UNDERSCORE.artist;
+    }
+
+    function isOutroUnderscoreTrack(track) {
+        return toKey(track?.title) === OUTRO_UNDERSCORE.title && toKey(track?.artist) === OUTRO_UNDERSCORE.artist;
+    }
+
+    function getVisibleTracks(tracks) {
+        if (!Array.isArray(tracks) || !tracks.length) {
+            return [];
+        }
+        const total = tracks.length;
+        return tracks.map((track, index) => ({ track, index }))
+            .filter(({ track, index }) => {
+                if (index === 0 && isIntroUnderscoreTrack(track)) {
+                    return false;
+                }
+                if (index === total - 1 && isOutroUnderscoreTrack(track)) {
+                    return false;
+                }
+                return true;
+            });
+    }
+
     let searchTimer = null;
     let lastOverlayTrigger = null;
 
@@ -507,9 +539,10 @@
 
         const tracksList = document.createElement('ol');
         tracksList.className = 'show-drawer__tracks';
+        const visibleTracks = getVisibleTracks(show.tracks || []);
 
-        if (Array.isArray(show.tracks) && show.tracks.length) {
-            show.tracks.forEach((track, index) => {
+        if (visibleTracks.length) {
+            visibleTracks.forEach(({ track, index }) => {
                 const item = document.createElement('li');
                 const button = document.createElement('button');
                 button.type = 'button';
@@ -709,7 +742,7 @@
             }
         });
 
-        (show.tracks || []).forEach((track) => {
+        getVisibleTracks(show.tracks || []).map(({ track }) => track).forEach((track) => {
             const artist = (track.artist || '').toLowerCase();
             const title = (track.title || '').toLowerCase();
             const album = (track.album || '').toLowerCase();
