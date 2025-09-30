@@ -27,15 +27,20 @@
 4. [x] GET `/wp-json/pbr/v1/search?q=`
 5. [x] POST `/wp-json/pbr/v1/recommend`
 6. [x] POST `/wp-json/pbr/v1/bundle`
+7. [x] POST `/wp-json/pbr/v1/live` (toggle live status)
+   - Auth: header `X-PBR-Secret: <secret>` from env `PBR_LIVE_SECRET` or constant `PBR_LIVE_SECRET`.
+   - Body: `{ "is_live": boolean, "slug"?: string|null, "now_playing"?: string|null, "source"?: string }`
+   - Response: `{ is_live, updated_at, now_playing, source, slug?, show }`
 
 ### UI Tasks (in order)
 1. [x] Search overlay (Cmd/Ctrl+K) with keyboard focus management.
 2. [x] Show details drawer with tracklist jump behavior.
 3. [ ] "Pool Day" queue bundle integration.
 4. [ ] Live toggle & 30s poll indicator.
+   - Note: Indicator + polling implemented; UI toggle intentionally omitted (automation-driven).
 5. [ ] Keyboard shortcuts: space (play/pause), n (next), p (prev).
 6. [ ] Drawer polish: tracklist accordion, weather capsule, share sheet.
-7. [ ] Masthead "On Air" indicator powered by Audio Hijack live state.
+7. [x] Masthead "On Air" indicator powered by Audio Hijack live state.
 8. [x] Persistent floating search pill tuning (mobile + overlay interplay).
 
 ### Visual Polish
@@ -55,6 +60,14 @@
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
 4. [x] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
 5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
+   - Local steps:
+     - Set `PBR_LIVE_SECRET` via `.ddev/config.local.yaml` → `web_environment: [PBR_LIVE_SECRET=change-me]`, then `ddev restart`.
+     - In Audio Hijack, add Script blocks (JXA) on Session Started/Stopped to POST `/live` with `X-PBR-Secret` (see `docs/live.md`).
+     - Optional: Store secret in macOS Keychain (`security add-generic-password -s PBR_LIVE_SECRET -w 'change-me'`).
+     - Verify with `tools/live.sh on 2021-04-10 "Point Break Radio Live"` and `tools/live.sh off`.
+   - Prod steps:
+     - Set `PBR_LIVE_SECRET` in hosting env (or non-committed wp-config include).
+     - Point Audio Hijack to the production URL.
 6. [ ] Store Mixcloud API credentials outside repo (env/secrets) and load via config constants.
 7. [ ] Draft migration plan for moving shows/tracks into MySQL once CSV validation is complete.
 8. [x] Document importer flags (`--only`, `--delete`, `--mixcloud`) in README/docs.
@@ -66,3 +79,10 @@
 ### Analytics Ideas
 - [x] Launch Signal Intelligence analytics dashboard (core signals + storytelling views).
 - [ ] Explore track/artist/genre stats for a "trending" dashboard.
+
+## Live Status Automation (reference)
+- Endpoint: `GET/POST /wp-json/pbr/v1/live`.
+- Auth: `X-PBR-Secret` header; secret from env/constant.
+- Ledger: `data/live.json` stores current live state.
+- Front-end: masthead badge polls every ~30s (configurable via `pbradio_live_poll_interval`).
+- Docs/Scripts: see `docs/live.md` and `tools/live.sh`.
