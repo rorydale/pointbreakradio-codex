@@ -70,7 +70,10 @@
                 return true;
             });
     }
- = null;
+
+    let searchTimer = null;
+    let lastOverlayTrigger = null;
+
     function formatNumber(value) {
         const num = Number(value || 0);
         return Number.isFinite(num) ? num.toLocaleString() : '0';
@@ -250,10 +253,6 @@
         });
         container.appendChild(wrapper);
     }
-
-    let searchTimer = null;
-    let searchTimer = null;
-    let lastOverlayTrigger = null;
 
     function cacheShow(show) {
         if (!show || !show.slug) {
