@@ -73,23 +73,42 @@
 
     let searchTimer = null;
     let lastOverlayTrigger = null;
+    let analyticsTabsBound = false;
 
     function formatNumber(value) {
         const num = Number(value || 0);
         return Number.isFinite(num) ? num.toLocaleString() : '0';
     }
 
+    function truncateText(text, maxLength = 200) {
+        if (!text) {
+            return '';
+        }
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return `${text.slice(0, maxLength - 1).trim()}…`;
+    }
+
     function computeAnalytics(shows) {
         const totals = {
             showCount: shows.length,
             totalSeconds: 0,
+            totalTracks: 0,
         };
         const tagCounts = new Map();
         const yearCounts = new Map();
-        const durationSums = new Map();
-        const durationCounts = new Map();
+        const tagYearly = new Map();
         const artists = new Set();
+        const artistCounts = new Map();
+        const artistLabels = new Map();
+        const seenArtists = new Set();
+        const freshArtistCounts = new Map();
         const tags = new Set();
+        let longestShow = null;
+        let longestDuration = 0;
+        let densestShow = null;
+        let densestTrackCount = 0;
 
         shows.forEach((show) => {
             const published = show.published_at || show.date || show.slug;
@@ -97,14 +116,24 @@
             const duration = Number(show.duration_seconds || 0);
             if (Number.isFinite(duration)) {
                 totals.totalSeconds += duration;
-                if (year) {
-                    durationSums.set(year, (durationSums.get(year) || 0) + duration);
-                    durationCounts.set(year, (durationCounts.get(year) || 0) + 1);
+                if (duration > longestDuration) {
+                    longestDuration = duration;
+                    longestShow = show;
                 }
             }
             if (year) {
                 yearCounts.set(year, (yearCounts.get(year) || 0) + 1);
             }
+
+            const visibleTracks = getVisibleTracks(show.tracks || []);
+            totals.totalTracks += visibleTracks.length;
+            if (visibleTracks.length > densestTrackCount) {
+                densestTrackCount = visibleTracks.length;
+                densestShow = show;
+            }
+
+            const showArtists = new Set();
+
             (show.tags || []).forEach((tag) => {
                 if (!tag) {
                     return;
@@ -112,12 +141,34 @@
                 const key = tag.toLowerCase();
                 tags.add(key);
                 tagCounts.set(key, (tagCounts.get(key) || 0) + 1);
-            });
-            getVisibleTracks(show.tracks || []).forEach(({ track }) => {
-                if (track && track.artist) {
-                    artists.add(track.artist.toLowerCase());
+                if (year) {
+                    if (!tagYearly.has(year)) {
+                        tagYearly.set(year, new Map());
+                    }
+                    const yearly = tagYearly.get(year);
+                    yearly.set(key, (yearly.get(key) || 0) + 1);
                 }
             });
+            visibleTracks.forEach(({ track }) => {
+                if (track && track.artist) {
+                    const key = track.artist.toLowerCase();
+                    artists.add(key);
+                    showArtists.add(key);
+                    artistCounts.set(key, (artistCounts.get(key) || 0) + 1);
+                    if (!artistLabels.has(key)) {
+                        artistLabels.set(key, track.artist);
+                    }
+                }
+            });
+
+            if (year && showArtists.size) {
+                showArtists.forEach((artistKey) => {
+                    if (!seenArtists.has(artistKey)) {
+                        seenArtists.add(artistKey);
+                        freshArtistCounts.set(year, (freshArtistCounts.get(year) || 0) + 1);
+                    }
+                });
+            }
         });
 
         const totalsOut = {
@@ -126,6 +177,7 @@
             avgMinutes: totals.showCount ? (totals.totalSeconds / totals.showCount) / 60 : 0,
             uniqueTags: tags.size,
             uniqueArtists: artists.size,
+            avgTracks: totals.showCount ? totals.totalTracks / totals.showCount : 0,
         };
 
         const years = Array.from(yearCounts.entries())
@@ -133,17 +185,92 @@
             .map(([year, count]) => ({ year, count }));
         const maxYearCount = years.reduce((max, entry) => Math.max(max, entry.count), 1);
 
-        const avgDurations = Array.from(durationSums.entries())
-            .sort((a, b) => a[0] - b[0])
-            .map(([year, sum]) => ({ year, minutes: (sum / (durationCounts.get(year) || 1)) / 60 }));
-
         const tagsTop = Array.from(tagCounts.entries())
             .sort((a, b) => b[1] - a[1])
             .slice(0, 20)
             .map(([tag, count]) => ({ tag, count }));
         const maxTagCount = tagsTop.reduce((max, entry) => Math.max(max, entry.count), 1);
 
-        return { totals: totalsOut, years, maxYearCount, avgDurations, tagsTop, maxTagCount };
+        const freshArtists = years.map(({ year }) => ({ year, count: freshArtistCounts.get(year) || 0 }));
+        const maxFreshCount = freshArtists.reduce((max, entry) => Math.max(max, entry.count), 1);
+
+        const topArtists = Array.from(artistCounts.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 8)
+            .map(([key, count]) => ({
+                artist: artistLabels.get(key) || key,
+                count,
+            }));
+
+        const determineYear = (show) => {
+            if (!show) {
+                return null;
+            }
+            const source = show.published_at || show.date || show.slug || '';
+            const match = String(source).match(/(\d{4})/);
+            return match ? Number(match[1]) : null;
+        };
+
+        const highlightShows = {
+            longest: longestShow ? {
+                slug: longestShow.slug,
+                title: longestShow.title,
+                durationSeconds: Number(longestShow.duration_seconds || 0),
+                trackCount: getVisibleTracks(longestShow.tracks || []).length,
+                tags: (longestShow.tags || []).slice(0, 3),
+                description: longestShow.description || '',
+                mixcloudUrl: longestShow.mixcloud_url || longestShow.mixcloud_embed_url || '',
+                year: determineYear(longestShow),
+            } : null,
+            densest: densestShow ? {
+                slug: densestShow.slug,
+                title: densestShow.title,
+                durationSeconds: Number(densestShow.duration_seconds || 0),
+                trackCount: getVisibleTracks(densestShow.tracks || []).length,
+                tags: (densestShow.tags || []).slice(0, 3),
+                description: densestShow.description || '',
+                mixcloudUrl: densestShow.mixcloud_url || densestShow.mixcloud_embed_url || '',
+                year: determineYear(densestShow),
+            } : null,
+        };
+
+        const yearSpan = years.length ? {
+            start: years[0].year,
+            end: years[years.length - 1].year,
+        } : null;
+
+        const tagStories = Array.from(tagCounts.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([tag, total]) => {
+                const startYear = yearSpan ? yearSpan.start : null;
+                const endYear = yearSpan ? yearSpan.end : null;
+                const startCount = startYear && tagYearly.get(startYear) ? (tagYearly.get(startYear).get(tag) || 0) : 0;
+                const endCount = endYear && tagYearly.get(endYear) ? (tagYearly.get(endYear).get(tag) || 0) : 0;
+                return {
+                    tag,
+                    total,
+                    startYear,
+                    endYear,
+                    startCount,
+                    endCount,
+                    delta: endCount - startCount,
+                };
+            });
+
+        return {
+            totals: totalsOut,
+            years,
+            maxYearCount,
+            tagsTop,
+            maxTagCount,
+            freshArtists,
+            maxFreshCount,
+            topArtists,
+            highlightShows,
+            tagStories,
+            yearSpan,
+        };
     }
 
     function renderAnalytics(shows) {
@@ -155,7 +282,15 @@
         renderAnalyticsTotals(stats.totals);
         renderAnalyticsYears(stats.years, stats.maxYearCount);
         renderAnalyticsTags(stats.tagsTop, stats.maxTagCount);
-        renderAnalyticsDurations(stats.avgDurations);
+        renderAnalyticsFreshArtists(stats.freshArtists, stats.maxFreshCount);
+        renderAnalyticsLegends(stats.topArtists);
+        renderAnalyticsSpotlights(stats.highlightShows);
+        renderAnalyticsTagStories(stats.tagStories, stats.yearSpan);
+
+        if (!analyticsTabsBound) {
+            bindAnalyticsTabs();
+            analyticsTabsBound = true;
+        }
     }
 
     function renderAnalyticsTotals(totals) {
@@ -227,31 +362,247 @@
         });
     }
 
-    function renderAnalyticsDurations(entries) {
-        const container = document.querySelector('[data-analytics-durations]');
+    function renderAnalyticsFreshArtists(entries, max) {
+        const container = document.querySelector('[data-analytics-fresh]');
         if (!container) {
             return;
         }
         container.innerHTML = '';
-        if (!entries.length) {
+        if (!entries || !entries.length) {
             return;
         }
         const wrapper = document.createElement('div');
         wrapper.className = 'analytics-linePlot';
-        const max = entries.reduce((acc, entry) => Math.max(acc, entry.minutes), 1);
-        entries.forEach(({ year, minutes }) => {
+        const maxValue = max || 1;
+        entries.forEach(({ year, count }) => {
             const point = document.createElement('button');
             point.type = 'button';
             point.className = 'analytics-linePlot__point';
-            const height = Math.max(24, (max ? minutes / max : 0) * 120);
+            const ratio = maxValue ? (count / maxValue) : 0;
+            const height = Math.max(24, ratio * 120);
             point.style.setProperty('--height', `${height}px`);
             point.dataset.label = year;
             const value = document.createElement('span');
-            value.textContent = `${minutes.toFixed(0)}m`;
+            value.textContent = formatNumber(count);
             point.appendChild(value);
             wrapper.appendChild(point);
         });
         container.appendChild(wrapper);
+    }
+
+    function renderAnalyticsLegends(entries) {
+        const container = document.querySelector('[data-analytics-legends]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+
+        if (!entries || !entries.length) {
+            const empty = document.createElement('li');
+            empty.className = 'analytics-legend';
+            empty.textContent = 'Legends incoming once more shows land.';
+            container.appendChild(empty);
+            return;
+        }
+
+        entries.forEach(({ artist, count }, index) => {
+            const item = document.createElement('li');
+            item.className = 'analytics-legend';
+
+            const rank = document.createElement('span');
+            rank.className = 'analytics-legend__rank';
+            rank.textContent = String(index + 1);
+
+            const name = document.createElement('span');
+            name.className = 'analytics-legend__name';
+            name.textContent = artist;
+
+            const value = document.createElement('span');
+            value.className = 'analytics-legend__count';
+            value.textContent = `${formatNumber(count)} spins`;
+
+            item.append(rank, name, value);
+            container.appendChild(item);
+        });
+    }
+
+    function renderAnalyticsSpotlights(spotlights) {
+        const container = document.querySelector('[data-analytics-spotlights]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+
+        if (!spotlights) {
+            return;
+        }
+
+        const entries = [
+            ['longest', 'Longest Broadcast', 'Stretched the dial the furthest'],
+            ['densest', 'Deepest Crate Dive', 'Packed the most tracks into one session'],
+        ];
+
+        entries.forEach(([key, title, subtitle]) => {
+            const data = spotlights[key];
+            if (!data) {
+                return;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'analytics-spotlight';
+
+            const heading = document.createElement('h3');
+            heading.className = 'analytics-spotlight__title';
+            heading.textContent = title;
+
+            const metrics = document.createElement('p');
+            metrics.className = 'analytics-spotlight__metrics';
+            const durationLabel = formatDuration(data.durationSeconds || 0);
+            metrics.textContent = `${durationLabel} • ${formatNumber(data.trackCount || 0)} tracks`;
+
+            const showLine = document.createElement('p');
+            showLine.className = 'analytics-spotlight__show';
+            const labelParts = [];
+            if (data.title) {
+                labelParts.push(`“${data.title}”`);
+            }
+            if (data.year) {
+                labelParts.push(String(data.year));
+            }
+            showLine.textContent = labelParts.join(' • ') || 'Untitled transmission';
+
+            const description = document.createElement('p');
+            description.className = 'analytics-spotlight__description';
+            const summary = data.description ? truncateText(data.description, 200) : subtitle;
+            description.textContent = summary;
+
+            card.append(heading, metrics, showLine, description);
+
+            if (data.tags && data.tags.length) {
+                const tagsList = document.createElement('div');
+                tagsList.className = 'analytics-spotlight__tags';
+                data.tags.forEach((tag) => {
+                    const chip = document.createElement('span');
+                    chip.className = 'analytics-spotlight__tag';
+                    chip.textContent = tag;
+                    tagsList.appendChild(chip);
+                });
+                card.appendChild(tagsList);
+            }
+
+            if (data.mixcloudUrl) {
+                const link = document.createElement('a');
+                link.className = 'analytics-spotlight__cta';
+                link.href = data.mixcloudUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = 'Listen on Mixcloud';
+                card.appendChild(link);
+            }
+
+            container.appendChild(card);
+        });
+    }
+
+    function renderAnalyticsTagStories(stories, yearSpan) {
+        const container = document.querySelector('[data-analytics-tagstories]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+
+        if (!stories || !stories.length) {
+            const empty = document.createElement('div');
+            empty.className = 'analytics-tagStory';
+            const summary = document.createElement('p');
+            summary.className = 'analytics-tagStory__summary';
+            summary.textContent = 'Tag stories will appear once more broadcasts are logged.';
+            empty.appendChild(summary);
+            container.appendChild(empty);
+            return;
+        }
+
+        stories.forEach((story) => {
+            const card = document.createElement('div');
+            card.className = 'analytics-tagStory';
+
+            const name = document.createElement('h3');
+            name.className = 'analytics-tagStory__name';
+            name.textContent = `#${story.tag}`;
+
+            const trend = document.createElement('p');
+            trend.className = 'analytics-tagStory__trend';
+            if (story.startYear && story.endYear && story.startYear !== story.endYear) {
+                const startLabel = `${story.startYear}: ${formatNumber(story.startCount || 0)}`;
+                const endLabel = `${story.endYear}: ${formatNumber(story.endCount || 0)}`;
+                trend.textContent = `${startLabel} → ${endLabel}`;
+            } else if (story.startYear) {
+                trend.textContent = `${story.startYear}: ${formatNumber(story.total || 0)}`;
+            } else if (yearSpan) {
+                trend.textContent = `${yearSpan.start} → ${yearSpan.end}`;
+            } else {
+                trend.textContent = 'Archive view';
+            }
+
+            const summary = document.createElement('p');
+            summary.className = 'analytics-tagStory__summary';
+            const delta = Number(story.delta || 0);
+            const magnitude = Math.abs(delta);
+            let narrative = '';
+            if (story.startYear && story.endYear && story.startYear !== story.endYear) {
+                if (delta > 0) {
+                    narrative = `Surged by ${formatNumber(magnitude)} new spins in ${story.endYear}.`;
+                } else if (delta < 0) {
+                    narrative = `Cooled by ${formatNumber(magnitude)} plays after ${story.startYear}, but still core to the sound.`;
+                } else {
+                    narrative = 'Holding steady across the years.';
+                }
+            } else {
+                narrative = 'Signature vibe across the archive.';
+            }
+            summary.textContent = `${formatNumber(story.total || 0)} total spins. ${narrative}`;
+
+            card.append(name, trend, summary);
+            container.appendChild(card);
+        });
+    }
+
+    function bindAnalyticsTabs() {
+        const root = document.querySelector('[data-analytics-tabs]');
+        if (!root) {
+            return;
+        }
+        const tabs = Array.from(root.querySelectorAll('[data-analytics-tab]'));
+        const panels = Array.from(document.querySelectorAll('[data-analytics-section]'));
+        if (!tabs.length || !panels.length) {
+            return;
+        }
+
+        tabs.forEach((tab) => {
+            const isActive = tab.classList.contains('is-active');
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            tab.tabIndex = isActive ? 0 : -1;
+
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.analyticsTab;
+                if (!target) {
+                    return;
+                }
+
+                tabs.forEach((button) => {
+                    const isActive = button === tab;
+                    button.classList.toggle('is-active', isActive);
+                    button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                    button.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    const match = panel.dataset.analyticsSection === target;
+                    panel.classList.toggle('is-active', match);
+                    panel.toggleAttribute('hidden', !match);
+                });
+            });
+        });
     }
 
     function cacheShow(show) {

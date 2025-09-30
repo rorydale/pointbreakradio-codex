@@ -64,5 +64,5 @@
 - [ ] Add per-show notes/links section in drawer (accordion with comments/corrections).
 
 ### Analytics Ideas
-- [x] Launch Signal Intelligence analytics dashboard (shows, tags, durations).
+- [x] Launch Signal Intelligence analytics dashboard (core signals + storytelling views).
 - [ ] Explore track/artist/genre stats for a "trending" dashboard.
