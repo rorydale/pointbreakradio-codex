@@ -47,11 +47,11 @@
     }
 
     function isIntroUnderscoreTrack(track) {
-        return toKey(track?.title) === INTRO_UNDERSCORE.title && toKey(track?.artist) === INTRO_UNDERSCORE.artist;
+        return toKey(track && track.title) === INTRO_UNDERSCORE.title && toKey(track && track.artist) === INTRO_UNDERSCORE.artist;
     }
 
     function isOutroUnderscoreTrack(track) {
-        return toKey(track?.title) === OUTRO_UNDERSCORE.title && toKey(track?.artist) === OUTRO_UNDERSCORE.artist;
+        return toKey(track && track.title) === OUTRO_UNDERSCORE.title && toKey(track && track.artist) === OUTRO_UNDERSCORE.artist;
     }
 
     function getVisibleTracks(tracks) {
@@ -70,7 +70,188 @@
                 return true;
             });
     }
+ = null;
+    function formatNumber(value) {
+        const num = Number(value || 0);
+        return Number.isFinite(num) ? num.toLocaleString() : '0';
+    }
 
+    function computeAnalytics(shows) {
+        const totals = {
+            showCount: shows.length,
+            totalSeconds: 0,
+        };
+        const tagCounts = new Map();
+        const yearCounts = new Map();
+        const durationSums = new Map();
+        const durationCounts = new Map();
+        const artists = new Set();
+        const tags = new Set();
+
+        shows.forEach((show) => {
+            const published = show.published_at || show.date || show.slug;
+            const year = published ? new Date(published).getFullYear() : null;
+            const duration = Number(show.duration_seconds || 0);
+            if (Number.isFinite(duration)) {
+                totals.totalSeconds += duration;
+                if (year) {
+                    durationSums.set(year, (durationSums.get(year) || 0) + duration);
+                    durationCounts.set(year, (durationCounts.get(year) || 0) + 1);
+                }
+            }
+            if (year) {
+                yearCounts.set(year, (yearCounts.get(year) || 0) + 1);
+            }
+            (show.tags || []).forEach((tag) => {
+                if (!tag) {
+                    return;
+                }
+                const key = tag.toLowerCase();
+                tags.add(key);
+                tagCounts.set(key, (tagCounts.get(key) || 0) + 1);
+            });
+            getVisibleTracks(show.tracks || []).forEach(({ track }) => {
+                if (track && track.artist) {
+                    artists.add(track.artist.toLowerCase());
+                }
+            });
+        });
+
+        const totalsOut = {
+            showCount: totals.showCount,
+            totalHours: totals.totalSeconds / 3600,
+            avgMinutes: totals.showCount ? (totals.totalSeconds / totals.showCount) / 60 : 0,
+            uniqueTags: tags.size,
+            uniqueArtists: artists.size,
+        };
+
+        const years = Array.from(yearCounts.entries())
+            .sort((a, b) => a[0] - b[0])
+            .map(([year, count]) => ({ year, count }));
+        const maxYearCount = years.reduce((max, entry) => Math.max(max, entry.count), 1);
+
+        const avgDurations = Array.from(durationSums.entries())
+            .sort((a, b) => a[0] - b[0])
+            .map(([year, sum]) => ({ year, minutes: (sum / (durationCounts.get(year) || 1)) / 60 }));
+
+        const tagsTop = Array.from(tagCounts.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 20)
+            .map(([tag, count]) => ({ tag, count }));
+        const maxTagCount = tagsTop.reduce((max, entry) => Math.max(max, entry.count), 1);
+
+        return { totals: totalsOut, years, maxYearCount, avgDurations, tagsTop, maxTagCount };
+    }
+
+    function renderAnalytics(shows) {
+        const root = document.querySelector('[data-analytics-root]');
+        if (!root) {
+            return;
+        }
+        const stats = computeAnalytics(shows);
+        renderAnalyticsTotals(stats.totals);
+        renderAnalyticsYears(stats.years, stats.maxYearCount);
+        renderAnalyticsTags(stats.tagsTop, stats.maxTagCount);
+        renderAnalyticsDurations(stats.avgDurations);
+    }
+
+    function renderAnalyticsTotals(totals) {
+        const container = document.querySelector('[data-analytics-totals]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+        const entries = [
+            ['Shows in archive', formatNumber(totals.showCount)],
+            ['Unique tags', formatNumber(totals.uniqueTags)],
+            ['Unique artists', formatNumber(totals.uniqueArtists)],
+            ['Total runtime', `${formatNumber(totals.totalHours.toFixed(1))} hrs`],
+            ['Average duration', `${formatNumber(totals.avgMinutes.toFixed(1))} mins`],
+        ];
+        entries.forEach(([label, value]) => {
+            const dt = document.createElement('dt');
+            dt.textContent = label;
+            const dd = document.createElement('dd');
+            dd.textContent = value;
+            container.append(dt, dd);
+        });
+    }
+
+    function renderAnalyticsYears(years, max) {
+        const container = document.querySelector('[data-analytics-years]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+        years.forEach(({ year, count }) => {
+            const row = document.createElement('div');
+            row.className = 'analytics-bar';
+            const label = document.createElement('span');
+            label.className = 'analytics-bar__label';
+            label.textContent = year;
+            const meter = document.createElement('span');
+            meter.className = 'analytics-bar__meter';
+            const ratio = max ? count / max : 0;
+            meter.style.setProperty('--value', ratio);
+            meter.setAttribute('aria-valuenow', String(count));
+            meter.setAttribute('aria-valuemin', '0');
+            meter.setAttribute('aria-valuemax', String(max));
+            const value = document.createElement('span');
+            value.className = 'analytics-bar__value';
+            value.textContent = formatNumber(count);
+            row.append(label, meter, value);
+            container.appendChild(row);
+        });
+    }
+
+    function renderAnalyticsTags(tags, max) {
+        const container = document.querySelector('[data-analytics-tags]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+        tags.forEach(({ tag, count }) => {
+            const chip = document.createElement('span');
+            chip.className = 'analytics-tag';
+            const name = document.createElement('span');
+            name.textContent = tag;
+            const countEl = document.createElement('span');
+            countEl.className = 'analytics-tag__count';
+            countEl.textContent = formatNumber(count);
+            chip.style.setProperty('--weight', max ? count / max : 0);
+            chip.append(name, countEl);
+            container.appendChild(chip);
+        });
+    }
+
+    function renderAnalyticsDurations(entries) {
+        const container = document.querySelector('[data-analytics-durations]');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = '';
+        if (!entries.length) {
+            return;
+        }
+        const wrapper = document.createElement('div');
+        wrapper.className = 'analytics-linePlot';
+        const max = entries.reduce((acc, entry) => Math.max(acc, entry.minutes), 1);
+        entries.forEach(({ year, minutes }) => {
+            const point = document.createElement('button');
+            point.type = 'button';
+            point.className = 'analytics-linePlot__point';
+            const height = Math.max(24, (max ? minutes / max : 0) * 120);
+            point.style.setProperty('--height', `${height}px`);
+            point.dataset.label = year;
+            const value = document.createElement('span');
+            value.textContent = `${minutes.toFixed(0)}m`;
+            point.appendChild(value);
+            wrapper.appendChild(point);
+        });
+        container.appendChild(wrapper);
+    }
+
+    let searchTimer = null;
     let searchTimer = null;
     let lastOverlayTrigger = null;
 
@@ -1035,6 +1216,7 @@
             }
 
             renderShows();
+            renderAnalytics(state.shows);
             syncActiveCard();
 
             if (!state.currentShow && state.shows.length) {
