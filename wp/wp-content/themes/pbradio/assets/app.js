@@ -38,6 +38,7 @@
         searchLoading: false,
         activeTrackIndex: null,
         livePollTimer: null,
+        searchAnchored: false,
     };
 
     const MAX_MATCH_PREVIEW = 4;
@@ -98,8 +99,43 @@
         if (!button || !button.classList.contains('masthead__search--floating')) {
             return;
         }
+
+        if (button.classList.contains('is-transitioning')) {
+            return;
+        }
+
         const shouldAnchor = window.scrollY <= 4;
-        button.classList.toggle('is-anchored', shouldAnchor);
+
+        if (shouldAnchor) {
+            if (!state.searchAnchored) {
+                button.classList.remove('is-transitioning');
+                button.style.removeProperty('--detach-top');
+                button.style.removeProperty('--detach-right');
+                button.classList.add('is-anchored');
+                state.searchAnchored = true;
+            }
+            return;
+        }
+
+        if (!state.searchAnchored) {
+            button.classList.remove('is-anchored');
+            return;
+        }
+
+        const rect = button.getBoundingClientRect();
+        const detachRight = Math.max(0, window.innerWidth - rect.right);
+
+        button.style.setProperty('--detach-top', `${rect.top}px`);
+        button.style.setProperty('--detach-right', `${detachRight}px`);
+        button.classList.remove('is-anchored');
+        button.classList.add('is-transitioning');
+        state.searchAnchored = false;
+
+        window.requestAnimationFrame(() => {
+            button.classList.remove('is-transitioning');
+            button.style.removeProperty('--detach-top');
+            button.style.removeProperty('--detach-right');
+        });
     }
 
     function updateLiveIndicator(data = {}) {
