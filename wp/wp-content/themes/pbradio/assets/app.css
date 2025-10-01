@@ -254,7 +254,6 @@ a:focus {
     right: clamp(24px, 4vw, 64px);
     transform: translateY(-50%);
     box-shadow: 0 18px 28px rgba(5, 5, 16, 0.3);
-    width: clamp(190px, 30vw, 240px);
 }
 
 .masthead__search--floating.is-anchored {
@@ -306,7 +305,9 @@ body.has-drawer-open .masthead__search--floating {
         transform: none;
         box-shadow: 0 18px 40px rgba(5, 5, 16, 0.35);
         margin: 0 auto;
-        width: clamp(190px, 45vw, 240px);
+        width: auto;
+        min-width: clamp(190px, 55vw, 240px);
+        max-width: clamp(210px, 60vw, 260px);
     }
 }
 
