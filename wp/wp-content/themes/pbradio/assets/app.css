@@ -147,7 +147,7 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position: relative;
+    position: static;
     min-height: 48px;
     gap: 16px;
 }
@@ -236,14 +236,23 @@ a:focus {
 
 .masthead__search--floating {
     position: fixed;
-    top: clamp(50px, 4vw, 32px);
+    top: clamp(45px, 4vw, 32px);
     right: clamp(16px, 5vw, 64px);
     padding-right: clamp(20px, 4vw, 28px);
-    z-index: 90;
+    z-index: 150;
     min-width: 190px;
     box-shadow: 0 18px 40px rgba(5, 5, 16, 0.45);
     backdrop-filter: blur(8px);
     transition: opacity 200ms ease, transform 200ms ease;
+    transform: translateY(0);
+}
+
+.masthead__search--floating.is-anchored {
+    position: absolute;
+    top: 50%;
+    right: clamp(24px, 4vw, 64px);
+    transform: translateY(-50%);
+    box-shadow: 0 18px 32px rgba(5, 5, 16, 0.35);
 }
 
 
@@ -280,6 +289,13 @@ body.has-drawer-open .masthead__search--floating {
         position: static;
         transform: none;
         margin: 0 auto;
+    }
+
+    .masthead__search--floating.is-anchored {
+        position: static;
+        transform: none;
+        margin-left: 0;
+        width: 100%;
     }
 }
 

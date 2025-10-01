@@ -93,6 +93,15 @@
         return `${text.slice(0, maxLength - 1).trim()}…`;
     }
 
+    function updateFloatingSearchAnchor() {
+        const button = selectors.searchButton;
+        if (!button || !button.classList.contains('masthead__search--floating')) {
+            return;
+        }
+        const shouldAnchor = window.scrollY <= 4;
+        button.classList.toggle('is-anchored', shouldAnchor);
+    }
+
     function updateLiveIndicator(data = {}) {
         const indicator = selectors.liveIndicator;
         if (!indicator) {
