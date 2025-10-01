@@ -168,8 +168,12 @@ a:focus {
     text-transform: uppercase;
     color: var(--text-muted);
     transition: background 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
-    position: relative;
-    z-index: 120;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 130;
+    pointer-events: none;
 }
 
 .masthead__liveDot {
@@ -269,6 +273,14 @@ body.has-drawer-open .masthead__search--floating {
         width: 100%;
         justify-content: center;
         gap: 20px;
+        flex-direction: column;
+    }
+
+    .masthead__live {
+        position: static;
+        transform: none;
+        pointer-events: auto;
+        margin-bottom: clamp(12px, 3vw, 18px);
     }
 }
 
