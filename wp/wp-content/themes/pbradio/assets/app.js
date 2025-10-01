@@ -9,6 +9,8 @@
         playerFrame: document.getElementById('player-iframe'),
         playerBar: document.getElementById('sticky-player'),
         searchButton: document.querySelector('.masthead__search'),
+        liveIndicator: document.querySelector('[data-live-indicator]'),
+        liveLabel: document.querySelector('[data-live-label]'),
     };
 
     const overlay = {
@@ -35,6 +37,7 @@
         searchResults: [],
         searchLoading: false,
         activeTrackIndex: null,
+        livePollTimer: null,
     };
 
     const MAX_MATCH_PREVIEW = 4;
@@ -88,6 +91,29 @@
             return text;
         }
         return `${text.slice(0, maxLength - 1).trim()}…`;
+    }
+
+    function updateLiveIndicator(data = {}) {
+        const indicator = selectors.liveIndicator;
+        if (!indicator) {
+            return;
+        }
+
+        const isLive = Boolean(state.isLive);
+        const label = selectors.liveLabel || indicator.querySelector('[data-live-label]');
+        const nowPlaying = isLive && typeof data.now_playing === 'string' && data.now_playing.trim() !== ''
+            ? data.now_playing.trim()
+            : null;
+        const labelText = isLive ? 'On Air' : 'Off Air';
+        const composedText = nowPlaying ? `${labelText} • ${nowPlaying}` : labelText;
+
+        indicator.setAttribute('data-live', isLive ? 'true' : 'false');
+        indicator.setAttribute('aria-label', composedText);
+        indicator.title = data.updated_at ? `Status updated ${new Date(data.updated_at).toLocaleString()}` : '';
+
+        if (label) {
+            label.textContent = composedText;
+        }
     }
 
     function computeAnalytics(shows) {
@@ -1515,17 +1541,41 @@
         }
     }
 
-    async function loadLive() {
+    async function loadLive(options = {}) {
+        const silent = Boolean(options.silent);
         try {
             const data = await fetchJson('/live');
             state.isLive = Boolean(data?.is_live);
+            updateLiveIndicator(data || {});
+
             if (data?.show) {
                 cacheShow(data.show);
-                setActiveShow(data.show, { autoplay: false });
+                const incomingSlug = data.show.slug || null;
+                const currentSlug = state.currentShow ? state.currentShow.slug : null;
+                const shouldUpdate = !state.currentShow || (incomingSlug && incomingSlug !== currentSlug);
+
+                const allowUpdate = !silent || state.isLive || !state.currentShow;
+
+                if (shouldUpdate && allowUpdate) {
+                    setActiveShow(data.show, { autoplay: false });
+                }
             }
         } catch (error) {
             console.error('Failed to load live data', error);
         }
+    }
+
+    function scheduleLiveRefresh() {
+        const rawInterval = Number(settings.livePollInterval || 0);
+        const interval = Number.isFinite(rawInterval) && rawInterval > 0 ? rawInterval : 30000;
+
+        if (state.livePollTimer) {
+            window.clearInterval(state.livePollTimer);
+        }
+
+        state.livePollTimer = window.setInterval(() => {
+            loadLive({ silent: true });
+        }, Math.max(10000, interval));
     }
 
     async function fetchAllShows(limit = 50) {
@@ -1653,7 +1703,17 @@
     window.addEventListener('DOMContentLoaded', () => {
         bindEvents();
         initFloatingSearch();
-        loadLive();
+        updateLiveIndicator();
+        loadLive().finally(() => {
+            scheduleLiveRefresh();
+        });
         loadShows();
+    });
+
+    window.addEventListener('beforeunload', () => {
+        if (state.livePollTimer) {
+            window.clearInterval(state.livePollTimer);
+            state.livePollTimer = null;
+        }
     });
 })();

@@ -36,6 +36,10 @@
             ?>
         </nav>
         <div class="masthead__actions">
+            <div class="masthead__live" data-live-indicator role="status" aria-live="polite">
+                <span class="masthead__liveDot" aria-hidden="true"></span>
+                <span class="masthead__liveLabel" data-live-label>Off Air</span>
+            </div>
             <button type="button" class="masthead__search" data-open-search aria-haspopup="dialog">
                 <span class="masthead__search-label">Search</span>
                 <span class="masthead__key-hint" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span>

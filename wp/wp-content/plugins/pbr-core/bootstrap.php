@@ -402,9 +402,10 @@ function bootstrap(): void
     }
 
     $data_file = $root_dir . '/data/shows.json';
+    $live_file = $root_dir . '/data/live.json';
 
     $store = new Store($data_file);
-    $api = new Api($store);
+    $api = new Api($store, $live_file);
 
     add_action('rest_api_init', [$api, 'register_routes']);
 

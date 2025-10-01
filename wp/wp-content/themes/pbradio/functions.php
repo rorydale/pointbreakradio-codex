@@ -33,6 +33,7 @@ add_action('wp_enqueue_scripts', function (): void {
         'restBase' => esc_url_raw(rest_url('pbr/v1')),
         'siteTitle' => get_bloginfo('name'),
         'themeUrl' => esc_url_raw(get_template_directory_uri()),
+        'livePollInterval' => apply_filters('pbradio_live_poll_interval', 30000),
         'nonce' => wp_create_nonce('wp_rest'),
         'debug' => defined('WP_DEBUG') && WP_DEBUG,
     ]);
