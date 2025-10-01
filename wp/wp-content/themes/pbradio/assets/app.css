@@ -145,11 +145,12 @@ a:focus {
 
 .masthead__actions {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: center;
     position: relative;
     min-height: 48px;
-    gap: 16px;
+    gap: clamp(16px, 3vw, 24px);
+    width: 100%;
 }
 
 .masthead__live {
@@ -157,23 +158,19 @@ a:focus {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 22px;
+    padding: 12px 26px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.22);
     background: rgba(5, 5, 16, 0.32);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 36px rgba(6, 6, 18, 0.35);
     font-family: var(--mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.18em;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-muted);
     transition: background 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
     z-index: 130;
-    pointer-events: none;
 }
 
 .masthead__liveDot {
@@ -232,6 +229,7 @@ a:focus {
     cursor: pointer;
     font-size: 0.88rem;
     transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    margin-left: auto;
 }
 
 .masthead__search--floating {
@@ -277,10 +275,11 @@ body.has-drawer-open .masthead__search--floating {
     }
 
     .masthead__live {
-        position: static;
-        transform: none;
-        pointer-events: auto;
-        margin-bottom: clamp(12px, 3vw, 18px);
+        margin: 0;
+    }
+
+    .masthead__search {
+        margin-left: 0;
     }
 }
 
