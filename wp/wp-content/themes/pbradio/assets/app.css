@@ -306,7 +306,7 @@ body.has-drawer-open .masthead__search--floating {
         box-shadow: 0 18px 40px rgba(5, 5, 16, 0.35);
         margin: 0 auto;
         width: auto;
-        min-width: clamp(190px, 55vw, 240px);
+        min-width: clamp(190px, 55vw, 190px);
         max-width: clamp(210px, 60vw, 260px);
     }
 }
@@ -324,7 +324,6 @@ body.has-drawer-open .masthead__search--floating {
 
 .masthead__search:hover,
 .masthead__search:focus-visible {
-    transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.65);
     background: rgba(5, 5, 16, 0.45);
 }
