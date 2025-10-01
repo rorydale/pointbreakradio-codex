@@ -147,9 +147,10 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position: static;
+    position: relative;
     min-height: 48px;
     gap: 16px;
+    width: 100%;
 }
 
 .masthead__live {
@@ -252,6 +253,14 @@ a:focus {
     top: 50%;
     right: clamp(24px, 4vw, 64px);
     transform: translateY(-50%);
+    box-shadow: 0 18px 28px rgba(5, 5, 16, 0.3);
+}
+
+.masthead__search--floating.is-anchored {
+    position: absolute;
+    top: 50%;
+    right: clamp(24px, 4vw, 64px);
+    transform: translateY(-50%);
     box-shadow: 0 18px 32px rgba(5, 5, 16, 0.35);
 }
 
@@ -294,8 +303,10 @@ body.has-drawer-open .masthead__search--floating {
     .masthead__search--floating.is-anchored {
         position: static;
         transform: none;
-        margin-left: 0;
+        box-shadow: 0 18px 40px rgba(5, 5, 16, 0.35);
+        margin: 0 auto;
         width: 100%;
+        max-width: 320px;
     }
 }
 

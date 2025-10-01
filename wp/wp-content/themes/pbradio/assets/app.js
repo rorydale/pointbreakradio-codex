@@ -1707,6 +1707,9 @@
         }
 
         button.classList.add('masthead__search--floating');
+        updateFloatingSearchAnchor();
+        window.addEventListener('scroll', updateFloatingSearchAnchor, { passive: true });
+        window.addEventListener('resize', updateFloatingSearchAnchor);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1724,5 +1727,7 @@
             window.clearInterval(state.livePollTimer);
             state.livePollTimer = null;
         }
+        window.removeEventListener('scroll', updateFloatingSearchAnchor);
+        window.removeEventListener('resize', updateFloatingSearchAnchor);
     });
 })();
