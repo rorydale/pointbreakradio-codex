@@ -248,23 +248,6 @@ a:focus {
     transform: translateY(0);
 }
 
-.masthead__search--floating.is-anchored {
-    position: absolute;
-    top: 50%;
-    right: clamp(24px, 4vw, 64px);
-    transform: translateY(-50%);
-    box-shadow: 0 18px 28px rgba(5, 5, 16, 0.3);
-}
-
-.masthead__search--floating.is-anchored {
-    position: absolute;
-    top: 50%;
-    right: clamp(24px, 4vw, 64px);
-    transform: translateY(-50%);
-    box-shadow: 0 18px 32px rgba(5, 5, 16, 0.35);
-}
-
-
 body.has-search-open .masthead__search--floating,
 body.has-drawer-open .masthead__search--floating {
     opacity: 0;
