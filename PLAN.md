@@ -59,7 +59,7 @@
 2. [x] Theme and plugin autoload bootstrap verified.
 3. [x] JSON seed data kept in sync with REST outputs (regenerated via `php tools/import-shows.php`).
 4. [x] Optional Mixcloud enrichment via `php tools/import-shows.php --mixcloud` with cached responses.
-5. [ ] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
+5. [x] Integrate Audio Hijack live webhook to flip /live state (mixcloud.com/live/pointbreakradio).
    - Local steps:
      - Set `PBR_LIVE_SECRET` via `.ddev/config.local.yaml` → `web_environment: [PBR_LIVE_SECRET=change-me]`, then `ddev restart`.
      - In Audio Hijack, add Script blocks (JXA) on Session Started/Stopped to POST `/live` with `X-PBR-Secret` (see `docs/live.md`).
