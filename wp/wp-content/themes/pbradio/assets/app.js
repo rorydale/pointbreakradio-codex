@@ -42,7 +42,10 @@
 
     const MAX_MATCH_PREVIEW = 4;
 
-    const INTRO_UNDERSCORE = { title: "bnd", artist: "no doubt" };
+    const INTRO_UNDERSCORE = {
+        titles: ["bnd", "bnd - album version"],
+        artist: "no doubt",
+    };
     const OUTRO_UNDERSCORE = { title: "the blue wrath", artist: "i monster" };
 
     function toKey(value) {
@@ -50,7 +53,11 @@
     }
 
     function isIntroUnderscoreTrack(track) {
-        return toKey(track && track.title) === INTRO_UNDERSCORE.title && toKey(track && track.artist) === INTRO_UNDERSCORE.artist;
+        if (toKey(track && track.artist) !== INTRO_UNDERSCORE.artist) {
+            return false;
+        }
+        const titleKey = toKey(track && track.title);
+        return INTRO_UNDERSCORE.titles.includes(titleKey);
     }
 
     function isOutroUnderscoreTrack(track) {

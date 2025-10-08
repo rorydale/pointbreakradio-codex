@@ -64,10 +64,14 @@ if (is_array($existingLibrary['shows'] ?? null)) {
             continue;
         }
         $slug = strtolower((string) ($existingShow['slug'] ?? ''));
-        if ($slug === '') {
-            continue;
+        if ($slug !== '') {
+            $existingLibraryShows[$slug] = $existingShow;
         }
-        $existingLibraryShows[$slug] = $existingShow;
+
+        $dateKey = strtolower((string) ($existingShow['date'] ?? ''));
+        if ($dateKey !== '') {
+            $existingLibraryShows[$dateKey] = $existingShow;
+        }
     }
 }
 
@@ -217,46 +221,19 @@ foreach ($csvFiles as $csvPath) {
     $normalizedKey = strtolower($showSlug);
     if (isset($existingLibraryShows[$normalizedKey])) {
         $showRecord = mergeExistingShow($showRecord, $existingLibraryShows[$normalizedKey]);
-    } elseif (! empty($show['slug'])) {
-        $fallbackKey = strtolower((string) $show['slug']);
-        if (isset($existingLibraryShows[$fallbackKey])) {
-            $showRecord = mergeExistingShow($showRecord, $existingLibraryShows[$fallbackKey]);
-        }
+    } elseif (isset($existingLibraryShows[$normalizedSlugDate])) {
+        $showRecord = mergeExistingShow($showRecord, $existingLibraryShows[$normalizedSlugDate]);
     }
 
     $shows[$showId] = $showRecord;
 }
 
-if (! $shows) {
+if (! $shows && ! $deleteMode) {
     fwrite(STDOUT, "No show data generated. Nothing to write.\n");
     exit(0);
 }
 
-usort($showTracks, static function (array $a, array $b): int {
-    if ($a['show_id'] === $b['show_id']) {
-        return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
-    }
-
-    return strcmp($a['show_id'], $b['show_id']);
-});
-
-usort($tracks, static function (array $a, array $b): int {
-    return strcmp($a['title'], $b['title']);
-});
-
-usort($artists, static function (array $a, array $b): int {
-    return strcmp($a['name'], $b['name']);
-});
-
-usort($albums, static function (array $a, array $b): int {
-    return strcmp($a['name'], $b['name']);
-});
-
-usort($shows, static function (array $a, array $b): int {
-    return strcmp($b['date'], $a['date']);
-});
-
-$library = [
+$newLibraryData = [
     'generated_at' => gmdate('c'),
     'artists' => array_values($artists),
     'albums' => array_values($albums),
@@ -265,59 +242,37 @@ $library = [
     'show_tracks' => array_values($showTracks),
 ];
 
-writeJson($outputLibrary, $library);
+$library = mergeLibraryData($existingLibrary, $newLibraryData, $onlySlugs, $deleteMode);
 
-$artistLookup = mapById($library['artists']);
-$albumLookup = mapById($library['albums']);
-$trackLookup = mapById($library['tracks']);
-$showLookup = mapById($library['shows']);
-
-$denormalised = [];
-foreach ($library['shows'] as $show) {
-    $showTracksRecords = array_values(array_filter($library['show_tracks'], static function (array $record) use ($show): bool {
-        return $record['show_id'] === $show['id'];
-    }));
-
-    usort($showTracksRecords, static function (array $a, array $b): int {
+usort($library['show_tracks'], static function (array $a, array $b): int {
+    if (($a['show_id'] ?? '') === ($b['show_id'] ?? '')) {
         return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
-    });
-
-    $trackPayload = [];
-    foreach ($showTracksRecords as $record) {
-        $track = $trackLookup[$record['track_id']] ?? null;
-        if (! $track) {
-            continue;
-        }
-
-        $artist = $artistLookup[$track['artist_id']] ?? null;
-        $album = $track['album_id'] ? ($albumLookup[$track['album_id']] ?? null) : null;
-
-        $trackPayload[] = [
-            'title' => $track['title'],
-            'artist' => $artist['name'] ?? null,
-            'album' => $album['name'] ?? null,
-            'duration_seconds' => $track['duration_seconds'],
-            'order' => $record['order'],
-            'tags' => $track['tags'],
-        ];
     }
 
-    $denormalised[] = [
-        'slug' => $show['slug'],
-        'title' => $show['title'],
-        'description' => $show['description'],
-        'mixcloud_url' => $show['mixcloud_url'],
-        'mixcloud_embed_url' => $show['mixcloud_embed_url'],
-        'published_at' => $show['published_at'],
-        'duration_seconds' => $show['duration_seconds'],
-        'hero_image' => $show['hero_image'],
-        'year' => $show['year'],
-        'tags' => $show['tags'],
-        'tracks' => $trackPayload,
-        '_ft' => buildFullText($show, $trackPayload),
-        '_enriched' => $show['_enriched'],
-    ];
-}
+    return strcmp((string) ($a['show_id'] ?? ''), (string) ($b['show_id'] ?? ''));
+});
+
+usort($library['tracks'], static function (array $a, array $b): int {
+    return strcmp((string) ($a['title'] ?? ''), (string) ($b['title'] ?? ''));
+});
+
+usort($library['artists'], static function (array $a, array $b): int {
+    return strcmp((string) ($a['name'] ?? ''), (string) ($b['name'] ?? ''));
+});
+
+usort($library['albums'], static function (array $a, array $b): int {
+    return strcmp((string) ($a['name'] ?? ''), (string) ($b['name'] ?? ''));
+});
+
+usort($library['shows'], static function (array $a, array $b): int {
+    return strcmp((string) ($b['date'] ?? ''), (string) ($a['date'] ?? ''));
+});
+
+$library['generated_at'] = gmdate('c');
+
+writeJson($outputLibrary, $library);
+
+$denormalised = buildDenormalisedShowsFromLibrary($library);
 
 writeJson($outputShows, ['shows' => $denormalised]);
 
@@ -492,6 +447,156 @@ function mergeExistingShow(array $show, array $existing): array
     }
 
     return $show;
+}
+
+function mergeLibraryData(?array $existingLibrary, array $newLibraryData, array $onlySlugs, bool $deleteMode): array
+{
+    $existingLibrary = is_array($existingLibrary) ? $existingLibrary : null;
+
+    if (! $existingLibrary) {
+        return [
+            'generated_at' => $newLibraryData['generated_at'] ?? gmdate('c'),
+            'artists' => array_values(mapById($newLibraryData['artists'] ?? [])),
+            'albums' => array_values(mapById($newLibraryData['albums'] ?? [])),
+            'tracks' => array_values(mapById($newLibraryData['tracks'] ?? [])),
+            'shows' => array_values(mapById($newLibraryData['shows'] ?? [])),
+            'show_tracks' => array_values($newLibraryData['show_tracks'] ?? []),
+        ];
+    }
+
+    $removeSet = [];
+    foreach ($onlySlugs as $value) {
+        $normalized = strtolower(trim((string) $value));
+        if ($normalized !== '') {
+            $removeSet[$normalized] = true;
+        }
+    }
+
+    $existingArtists = mapById($existingLibrary['artists'] ?? []);
+    $existingAlbums = mapById($existingLibrary['albums'] ?? []);
+    $existingTracks = mapById($existingLibrary['tracks'] ?? []);
+    $existingShows = mapById($existingLibrary['shows'] ?? []);
+
+    $newArtists = mapById($newLibraryData['artists'] ?? []);
+    $newAlbums = mapById($newLibraryData['albums'] ?? []);
+    $newTracks = mapById($newLibraryData['tracks'] ?? []);
+    $newShows = mapById($newLibraryData['shows'] ?? []);
+
+    foreach ($newArtists as $id => $artist) {
+        $existingArtists[$id] = $artist;
+    }
+
+    foreach ($newAlbums as $id => $album) {
+        $existingAlbums[$id] = $album;
+    }
+
+    foreach ($newTracks as $id => $track) {
+        $existingTracks[$id] = $track;
+    }
+
+    $newShowIds = array_keys($newShows);
+    $newShowIdSet = array_fill_keys($newShowIds, true);
+    $removedShowIds = [];
+
+    foreach ($existingShows as $id => $show) {
+        if (isset($newShowIdSet[$id])) {
+            unset($existingShows[$id]);
+            continue;
+        }
+
+        $slug = strtolower((string) ($show['slug'] ?? ''));
+        $date = strtolower((string) ($show['date'] ?? ''));
+
+        if ($deleteMode && (($slug !== '' && isset($removeSet[$slug])) || ($date !== '' && isset($removeSet[$date])))) {
+            $removedShowIds[$id] = true;
+            unset($existingShows[$id]);
+        }
+    }
+
+    foreach ($newShows as $id => $show) {
+        $existingShows[$id] = $show;
+    }
+
+    $skipShowIds = $removedShowIds + $newShowIdSet;
+
+    $finalShowTracks = [];
+    foreach ($existingLibrary['show_tracks'] ?? [] as $record) {
+        $showId = $record['show_id'] ?? null;
+        if ($showId && isset($skipShowIds[$showId])) {
+            continue;
+        }
+
+        $finalShowTracks[] = $record;
+    }
+
+    foreach ($newLibraryData['show_tracks'] ?? [] as $record) {
+        $finalShowTracks[] = $record;
+    }
+
+    return [
+        'generated_at' => $newLibraryData['generated_at'] ?? gmdate('c'),
+        'artists' => array_values($existingArtists),
+        'albums' => array_values($existingAlbums),
+        'tracks' => array_values($existingTracks),
+        'shows' => array_values($existingShows),
+        'show_tracks' => $finalShowTracks,
+    ];
+}
+
+function buildDenormalisedShowsFromLibrary(array $library): array
+{
+    $artistLookup = mapById($library['artists'] ?? []);
+    $albumLookup = mapById($library['albums'] ?? []);
+    $trackLookup = mapById($library['tracks'] ?? []);
+
+    $denormalised = [];
+    foreach ($library['shows'] ?? [] as $show) {
+        $showTracksRecords = array_values(array_filter($library['show_tracks'] ?? [], static function (array $record) use ($show): bool {
+            return isset($record['show_id'], $show['id']) && $record['show_id'] === $show['id'];
+        }));
+
+        usort($showTracksRecords, static function (array $a, array $b): int {
+            return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
+        });
+
+        $trackPayload = [];
+        foreach ($showTracksRecords as $record) {
+            $track = $trackLookup[$record['track_id']] ?? null;
+            if (! $track) {
+                continue;
+            }
+
+            $artist = $artistLookup[$track['artist_id']] ?? null;
+            $album = $track['album_id'] ? ($albumLookup[$track['album_id']] ?? null) : null;
+
+            $trackPayload[] = [
+                'title' => $track['title'],
+                'artist' => $artist['name'] ?? null,
+                'album' => $album['name'] ?? null,
+                'duration_seconds' => $track['duration_seconds'],
+                'order' => $record['order'],
+                'tags' => $track['tags'],
+            ];
+        }
+
+        $denormalised[] = [
+            'slug' => $show['slug'] ?? null,
+            'title' => $show['title'] ?? null,
+            'description' => $show['description'] ?? null,
+            'mixcloud_url' => $show['mixcloud_url'] ?? null,
+            'mixcloud_embed_url' => $show['mixcloud_embed_url'] ?? null,
+            'published_at' => $show['published_at'] ?? null,
+            'duration_seconds' => $show['duration_seconds'] ?? null,
+            'hero_image' => $show['hero_image'] ?? null,
+            'year' => $show['year'] ?? null,
+            'tags' => $show['tags'] ?? [],
+            'tracks' => $trackPayload,
+            '_ft' => buildFullText($show, $trackPayload),
+            '_enriched' => $show['_enriched'] ?? false,
+        ];
+    }
+
+    return $denormalised;
 }
 
 function mapById(array $items): array
